@@ -5,6 +5,7 @@
     <parameters>
 
         <parameter name="prezent_grid.extension.core.class">Prezent\Grid\Extension\Core\CoreExtension</parameter>
+        <parameter name="prezent_grid.extension.core.bundle">Prezent\GridBundle\Grid\Extension\GridExtension</parameter>
         <parameter name="prezent_grid.column_type_factory.class">Prezent\Grid\DefaultColumnTypeFactory</parameter>
         <parameter name="prezent_grid.grid_factory.class">Prezent\Grid\DefaultGridFactory</parameter>
         <parameter name="prezent_grid.twig_renderer.class">Prezent\Grid\Twig\GridRenderer</parameter>
@@ -20,6 +21,10 @@
 
         <service id="prezent_grid.extension.core" class="%prezent_grid.extension.core.class%" public="false">
             <argument type="service" id="prezent_grid.accessor" />
+            <tag name="prezent_grid.grid_extension" />
+        </service>
+
+        <service id="prezent_grid.extension.bundle" class="%prezent_grid.extension.bundle.class%" public="false">
             <tag name="prezent_grid.grid_extension" />
         </service>
 

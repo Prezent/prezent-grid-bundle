@@ -12,11 +12,9 @@
         "php": "~5.5",
         "ext-intl": "*",
         "prezent/grid": "dev-master",
-        "symfony/framework-bundle": "~2.3"
-    },
-    "require-dev": {
+        "symfony/framework-bundle": "~2.3",
         "symfony/translation": "~2.3",
-        "symfony/twig-bridge": "~2.3"
+        "symfony/twig-bundle": "~2.3"
     },
     "license": "MIT",
     "authors": [

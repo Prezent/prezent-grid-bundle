@@ -1,0 +1,9 @@
+{% extends '::grid.html.twig' %}
+
+{% block grid_header_label %}
+    {{ label|trans({}, label_translation_domain) }}
+{% endblock %}
+
+{%- block grid_boolean_widget -%}
+    {{ column.getValue(item)|trans({}, 'PrezentGrid') }}
+{%- endblock -%}

@@ -2,6 +2,7 @@
 
 namespace Prezent\GridBundle\DependencyInjection\Compiler;
 
+use Prezent\Grid\Twig\GridExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\Reference;
@@ -21,6 +22,10 @@ class GridCompilerPass implements CompilerPassInterface
     {
         $this->addGrids($container);
         $this->addGridExtensions($container);
+
+        $reflClass = new \ReflectionClass(GridExtension::class);
+        $container->getDefinition('twig.loader.filesystem')
+            ->addMethodCall('addPath', array(dirname($reflClass->getFileName()).'/Resources/views/Grid'));
     }
 
     /**
