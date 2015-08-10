@@ -1,0 +1,31 @@
+{
+    "name": "prezent/grid-bundle",
+    "description": "Generic data grids bundle",
+    "type": "symfony-bundle",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "../prezent-grid"
+        }
+    ],
+    "require": {
+        "php": "~5.5",
+        "ext-intl": "*",
+        "prezent/grid": "dev-master",
+        "symfony/framework-bundle": "~2.3"
+    },
+    "require-dev": {
+        "symfony/translation": "~2.3",
+        "symfony/twig-bridge": "~2.3"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sander Marechal",
+            "email": "sander@prezent.nl"
+        }
+    ],
+    "autoload": {
+        "psr-4": { "Prezent\\GridBundle\\": "" }
+    }
+}
