@@ -2,7 +2,8 @@
 
 namespace Prezent\GridBundle;
 
-use Prezent\GridBundle\DependencyInjection\CompilerPassInterface\GridCompilerPass;
+use Prezent\GridBundle\DependencyInjection\Compiler\GridCompilerPass;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
