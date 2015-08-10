@@ -4,12 +4,12 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <parameters>
 
-        <parameter name="prezent_grid.extension.core.class">Prezent\Grid\Extension\Core\CoreExtension</parameter>
-        <parameter name="prezent_grid.extension.core.bundle">Prezent\GridBundle\Grid\Extension\GridExtension</parameter>
-        <parameter name="prezent_grid.column_type_factory.class">Prezent\Grid\DefaultColumnTypeFactory</parameter>
-        <parameter name="prezent_grid.grid_factory.class">Prezent\Grid\DefaultGridFactory</parameter>
-        <parameter name="prezent_grid.twig_renderer.class">Prezent\Grid\Twig\GridRenderer</parameter>
-        <parameter name="prezent_grid.twig_extension.class">Prezent\Grid\Twig\GridExtension</parameter>
+        <parameter key="prezent_grid.extension.core.class">Prezent\Grid\Extension\Core\CoreExtension</parameter>
+        <parameter key="prezent_grid.extension.core.bundle">Prezent\GridBundle\Grid\Extension\GridExtension</parameter>
+        <parameter key="prezent_grid.column_type_factory.class">Prezent\Grid\DefaultColumnTypeFactory</parameter>
+        <parameter key="prezent_grid.grid_factory.class">Prezent\Grid\DefaultGridFactory</parameter>
+        <parameter key="prezent_grid.twig_renderer.class">Prezent\Grid\Twig\GridRenderer</parameter>
+        <parameter key="prezent_grid.twig_extension.class">Prezent\Grid\Twig\GridExtension</parameter>
 
     </parameters>
     <services>
