@@ -5,7 +5,7 @@
     <parameters>
 
         <parameter key="prezent_grid.extension.core.class">Prezent\Grid\Extension\Core\CoreExtension</parameter>
-        <parameter key="prezent_grid.extension.core.bundle">Prezent\GridBundle\Grid\Extension\GridExtension</parameter>
+        <parameter key="prezent_grid.extension.bundle.class">Prezent\GridBundle\Grid\Extension\GridExtension</parameter>
         <parameter key="prezent_grid.column_type_factory.class">Prezent\Grid\DefaultColumnTypeFactory</parameter>
         <parameter key="prezent_grid.grid_factory.class">Prezent\Grid\DefaultGridFactory</parameter>
         <parameter key="prezent_grid.twig_renderer.class">Prezent\Grid\Twig\GridRenderer</parameter>
