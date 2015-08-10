@@ -8,9 +8,10 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
 
 /**
- * This is the class that loads and manages your bundle configuration
+ * Load the bundle configuration
  *
- * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
+ * @see Extension
+ * @author Sander Marechal
  */
 class PrezentGridExtension extends Extension
 {
@@ -24,5 +25,9 @@ class PrezentGridExtension extends Extension
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
+
+        if ($config['theme']) {
+            $container->getDefinition('prezent_grid.twig_renderer')->replaceArgument(0, $config['theme']);
+        }
     }
 }

@@ -2,6 +2,43 @@
 <container xmlns="http://symfony.com/schema/dic/services"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <parameters>
+
+        <parameter name="prezent_grid.extension.core.class">Prezent\Grid\Extension\Core\CoreExtension</parameter>
+        <parameter name="prezent_grid.column_type_factory.class">Prezent\Grid\DefaultColumnTypeFactory</parameter>
+        <parameter name="prezent_grid.grid_factory.class">Prezent\Grid\DefaultGridFactory</parameter>
+        <parameter name="prezent_grid.twig_renderer.class">Prezent\Grid\Twig\GridRenderer</parameter>
+        <parameter name="prezent_grid.twig_extension.class">Prezent\Grid\Twig\GridExtension</parameter>
+
+    </parameters>
     <services>
+
+        <service id="prezent_grid.accessor" class="Symfony\Component\PropertyAccess\PropertyAccessorInterface"
+            factory-class="Symfony\Component\PropertyAccess\PropertyAccess"
+            factory-method="createPropertyAccessor"
+            public="false" />
+
+        <service id="prezent_grid.extension.core" class="%prezent_grid.extension.core.class%" public="false">
+            <argument type="service" id="prezent_grid.accessor" />
+            <tag name="prezent_grid.grid_extension" />
+        </service>
+
+        <service id="prezent_grid.column_type_factory" class="%prezent_grid.column_type_factory.class%">
+            <argument />
+        </service>
+
+        <service id="prezent_grid.grid_factory" class="%prezent_grid.grid_factory.class%">
+            <argument type="service" id="prezent_grid.column_type_factory" />
+            <argument />
+        </service>
+
+        <service id="prezent_grid.twig_renderer" class="%prezent_grid.twig_renderer.class%" public="false">
+            <argument />
+        </service>
+
+        <service id="prezent_grid.twig_extension" class="%prezent_grid.twig_extension.class%" public="false">
+            <tag name="twig.extension" />
+        </service>
+
     </services>
 </container>
