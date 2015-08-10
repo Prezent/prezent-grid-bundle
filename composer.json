@@ -1,13 +1,9 @@
 {
     "name": "prezent/grid-bundle",
-    "description": "Generic data grids bundle",
     "type": "symfony-bundle",
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "../prezent-grid"
-        }
-    ],
+    "description": "Generic data grids and lists using prezent-grid",
+    "keywords": ["grid", "datagrid", "list"],
+    "homepage": "http://www.prezent.nl",
     "require": {
         "php": "~5.5",
         "ext-intl": "*",
@@ -21,9 +17,18 @@
         {
             "name": "Sander Marechal",
             "email": "sander@prezent.nl"
+        },
+        {
+            "name": "Prezent Internet B.V.",
+            "email": "github@prezent.nl"
         }
     ],
     "autoload": {
         "psr-4": { "Prezent\\GridBundle\\": "" }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
     }
 }
