@@ -41,13 +41,13 @@ class GridCompilerPass implements CompilerPassInterface
         }
 
         $grids = [];
-        foreach ($container->findTaggedServices('prezent_grid.grid') as $id => $tags) {
+        foreach ($container->findTaggedServiceIds('prezent_grid.grid') as $id => $tags) {
             $grids[] = new Reference($id);
         }
 
         $container
             ->findDefinition('prezent_grid.grid_factory')
-            ->replaceArgument(1, $extensions);
+            ->replaceArgument(1, $grids);
     }
 
     /**
@@ -63,7 +63,7 @@ class GridCompilerPass implements CompilerPassInterface
         }
 
         $extensions = [];
-        foreach ($container->findTaggedServices('prezent_grid.grid_extension') as $id => $tags) {
+        foreach ($container->findTaggedServiceIds('prezent_grid.grid_extension') as $id => $tags) {
             $extensions[] = new Reference($id);
         }
 
