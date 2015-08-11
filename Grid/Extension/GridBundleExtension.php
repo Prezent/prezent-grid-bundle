@@ -11,7 +11,7 @@ use Prezent\GridBundle\Grid\Type;
  * @see BaseGridExtension
  * @author Sander Marechal
  */
-class CoreExtension extends BaseGridExtension
+class GridBundleExtension extends BaseGridExtension
 {
     /**
      * {@inheritDoc}
