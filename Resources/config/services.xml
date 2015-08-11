@@ -42,6 +42,8 @@
             <argument />
         </service>
 
+        <service id="grid_factory" alias="prezent_grid.grid_factory" />
+
         <!-- Rendering -->
         <service id="prezent_grid.twig_renderer" class="%prezent_grid.twig_renderer.class%" public="false">
             <argument />
