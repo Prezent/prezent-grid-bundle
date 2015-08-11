@@ -43,7 +43,9 @@ class GridCompilerPass implements CompilerPassInterface
 
         $grids = [];
         foreach ($container->findTaggedServiceIds('prezent_grid.grid') as $id => $tags) {
-            $grids[] = new Reference($id);
+            foreach ($tags as $tag) {
+                $grids[$tag['alias']] = new Reference($id);
+            }
         }
 
         $container
