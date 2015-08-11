@@ -2,6 +2,10 @@
 
 namespace Prezent\GridBundle\Grid\Type;
 
+use Prezent\Grid\BaseColumnTypeExtension;
+use Prezent\Grid\ColumnView;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+
 /**
  * Translate header labels
  *
