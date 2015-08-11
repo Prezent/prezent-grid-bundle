@@ -10,6 +10,9 @@
         <parameter key="prezent_grid.grid_factory.class">Prezent\Grid\DefaultGridFactory</parameter>
         <parameter key="prezent_grid.twig_renderer.class">Prezent\Grid\Twig\GridRenderer</parameter>
         <parameter key="prezent_grid.twig_extension.class">Prezent\Grid\Twig\GridExtension</parameter>
+        <parameter key="prezent_grid.variable_resolver.callback.class">Prezent\Grid\VariableResolver\CallbackResolver</parameter>
+        <parameter key="prezent_grid.variable_resolver.chain.class">Prezent\Grid\VariableResolver\ChainResolver</parameter>
+        <parameter key="prezent_grid.variable_resolver.property_path.class">Prezent\Grid\VariableResolver\PropertyPathResolver</parameter>
 
     </parameters>
     <services>
@@ -19,6 +22,7 @@
             factory-method="createPropertyAccessor"
             public="false" />
 
+        <!-- Grid extensions -->
         <service id="prezent_grid.extension.core" class="%prezent_grid.extension.core.class%" public="false">
             <argument type="service" id="prezent_grid.accessor" />
             <tag name="prezent_grid.grid_extension" />
@@ -28,6 +32,7 @@
             <tag name="prezent_grid.grid_extension" />
         </service>
 
+        <!-- Factories -->
         <service id="prezent_grid.column_type_factory" class="%prezent_grid.column_type_factory.class%">
             <argument />
         </service>
@@ -37,12 +42,27 @@
             <argument />
         </service>
 
+        <!-- Rendering -->
         <service id="prezent_grid.twig_renderer" class="%prezent_grid.twig_renderer.class%" public="false">
             <argument />
         </service>
 
         <service id="prezent_grid.twig_extension" class="%prezent_grid.twig_extension.class%" public="false">
             <tag name="twig.extension" />
+        </service>
+
+        <!-- Variable resolvers -->
+        <service id="prezent_grid.variable_resolver" class="%prezent_grid.variable_resolver.chain.class%">
+            <argument />
+        </service>
+
+        <service id="prezent_grid.variable_resolver.callback" class="%prezent_grid.variable_resolver.callback.class%" public="false">
+            <tag name="prezent_grid.variable_resolver" />
+        </service>
+
+        <service id="prezent_grid.variable_resolver.property_path" class="%prezent_grid.variable_resolver.property_path.class%" public="false">
+            <argument type="service" id="prezent_grid.accessor" />
+            <tag name="prezent_grid.variable_resolver" />
         </service>
 
     </services>

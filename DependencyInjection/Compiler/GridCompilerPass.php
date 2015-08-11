@@ -22,6 +22,7 @@ class GridCompilerPass implements CompilerPassInterface
     {
         $this->addGrids($container);
         $this->addGridExtensions($container);
+        $this->addVariableResolvers($container);
 
         $reflClass = new \ReflectionClass(GridExtension::class);
         $container->getDefinition('twig.loader.filesystem')
@@ -70,5 +71,27 @@ class GridCompilerPass implements CompilerPassInterface
         $container
             ->findDefinition('prezent_grid.column_type_factory')
             ->replaceArgument(0, $extensions);
+    }
+
+    /**
+     * Add all variable resolvers
+     *
+     * @param ContainerBuilder $container
+     * @return void
+     */
+    private function addVariableResolvers(ContainerBuilder $container)
+    {
+        if (!$container->has('prezent_grid.variable_resolver')) {
+            return;
+        }
+
+        $resolvers = [];
+        foreach ($container->findTaggedServiceIds('prezent_grid.variable_resolver') as $id => $tags) {
+            $resolvers[] = new Reference($id);
+        }
+
+        $container
+            ->findDefinition('prezent_grid.variable_resolver')
+            ->replaceArgument(0, $resolvers);
     }
 }
