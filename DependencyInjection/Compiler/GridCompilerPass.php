@@ -26,7 +26,7 @@ class GridCompilerPass implements CompilerPassInterface
 
         $reflClass = new \ReflectionClass(GridExtension::class);
         $container->getDefinition('twig.loader.filesystem')
-            ->addMethodCall('addPath', array(dirname($reflClass->getFileName()).'/Resources/views/Grid'));
+            ->addMethodCall('addPath', array(dirname(dirname($reflClass->getFileName()).'/Resources/views/Grid')));
     }
 
     /**
