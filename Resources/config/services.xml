@@ -25,6 +25,7 @@
         <!-- Grid extensions -->
         <service id="prezent_grid.extension.core" class="%prezent_grid.extension.core.class%" public="false">
             <argument type="service" id="prezent_grid.accessor" />
+            <argument type="service" id="prezent_grid.variable_resolver" />
             <tag name="prezent_grid.grid_extension" />
         </service>
 
