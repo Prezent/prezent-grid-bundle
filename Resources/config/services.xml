@@ -48,6 +48,7 @@
         </service>
 
         <service id="prezent_grid.twig_extension" class="%prezent_grid.twig_extension.class%" public="false">
+            <argument type="service" id="prezent_grid.twig_renderer" />
             <tag name="twig.extension" />
         </service>
 
