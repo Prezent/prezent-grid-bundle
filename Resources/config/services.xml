@@ -30,6 +30,8 @@
         </service>
 
         <service id="prezent_grid.extension.bundle" class="%prezent_grid.extension.bundle.class%" public="false">
+            <argument type="service" id="router" />
+            <argument type="service" id="prezent_grid.variable_resolver" />
             <tag name="prezent_grid.grid_extension" />
         </service>
 
