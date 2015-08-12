@@ -19,7 +19,7 @@ class GridBundleExtension extends BaseGridExtension
     protected function loadColumnTypeExtensions()
     {
         return [
-            new Type\TranslatableLabelExtension(),
+            new Type\TranslatableLabelTypeExtension(),
         ];
     }
 }

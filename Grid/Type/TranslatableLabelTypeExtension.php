@@ -12,7 +12,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  * @see BaseColumnTypeExtension
  * @author Sander Marechal
  */
-class TranslatableLabelExtension extends BaseColumnTypeExtension
+class TranslatableLabelTypeExtension extends BaseColumnTypeExtension
 {
     /**
      * {@inheritDoc}
