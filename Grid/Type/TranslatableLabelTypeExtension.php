@@ -20,7 +20,7 @@ class TranslatableLabelTypeExtension extends BaseColumnTypeExtension
     public function configureOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'label_translation_domain' => null,
+            'label_translation_domain' => 'messages',
         ]);
     }
 
