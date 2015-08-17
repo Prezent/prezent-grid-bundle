@@ -9,6 +9,7 @@
         <parameter key="prezent_grid.column_type_factory.class">Prezent\Grid\DefaultColumnTypeFactory</parameter>
         <parameter key="prezent_grid.grid_factory.class">Prezent\Grid\DefaultGridFactory</parameter>
         <parameter key="prezent_grid.twig_renderer.class">Prezent\Grid\Twig\GridRenderer</parameter>
+        <parameter key="prezent_grid.twig_renderer.theme">PrezentGrid:Grid:grid.html.twig</parameter>
         <parameter key="prezent_grid.twig_extension.class">Prezent\Grid\Twig\GridExtension</parameter>
         <parameter key="prezent_grid.variable_resolver.callback.class">Prezent\Grid\VariableResolver\CallbackResolver</parameter>
         <parameter key="prezent_grid.variable_resolver.chain.class">Prezent\Grid\VariableResolver\ChainResolver</parameter>
@@ -49,7 +50,7 @@
 
         <!-- Rendering -->
         <service id="prezent_grid.twig_renderer" class="%prezent_grid.twig_renderer.class%" public="false">
-            <argument />
+            <argument>%prezent_grid.twig_renderer.theme%</argument>
         </service>
 
         <service id="prezent_grid.twig_extension" class="%prezent_grid.twig_extension.class%" public="false">
