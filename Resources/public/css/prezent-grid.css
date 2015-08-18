@@ -1,0 +1,24 @@
+.prezent-grid-sortable {
+    position: relative;
+}
+
+.prezent-grid-sortable::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    border: 5px solid rgba(255, 255, 255, 0);
+    position: absolute;
+    top: 0px;
+    right: -10px;
+    -moz-transform: scale(.9999);
+}
+
+.prezent-grid-sortable.prezent-grid-sort-asc::after {
+    top: 6px;
+    border-top-color: #000;
+}
+
+.prezent-grid-sortable.prezent-grid-sort-desc::after {
+    border-bottom-color: #000;
+}

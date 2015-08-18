@@ -2,7 +2,12 @@
 
 {% block grid_header_label %}
     {% if sort_route is defined and sort_route_parameters is defined %}
-        <a href="{{ path(sort_route, sort_route_parameters) }}">{{ label|trans({}, label_translation_domain) }}</a>
+        <a
+            href="{{ path(sort_route, sort_route_parameters) }}"
+            class="prezent-grid-sortable{% if sort_active %} prezent-grid-sort-{{ sort_active|lower }}{% endif %}"
+        >
+            {{ label|trans({}, label_translation_domain) }}
+        </a>
     {% else %}
         {{ label|trans({}, label_translation_domain) }}
     {% endif %}

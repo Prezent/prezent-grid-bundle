@@ -79,13 +79,15 @@ class SortableTypeExtension extends BaseColumnTypeExtension
             return;
         }
 
+        $active = false;
+        $order = 'ASC';
+
         $field = $options['sort_field'] ?: $view->name;
         $routeParams = $options['sort_route_parameters'] ?: $request->attributes->get('_route_params', []);
 
         if ($field === $request->get($this->fieldParameter)) {
-            $order = 'ASC' === $request->get($this->orderParameter) ? 'DESC' : 'ASC';
-        } else {
-            $order = 'ASC';
+            $active = $request->get($this->orderParameter);
+            $order = 'ASC' === $active ? 'DESC' : 'ASC';
         }
 
         $routeParams[$this->fieldParameter] = $field;
@@ -93,6 +95,7 @@ class SortableTypeExtension extends BaseColumnTypeExtension
 
         $view->vars['sort_route'] = $options['sort_route'] ?: $request->attributes->get('_route');
         $view->vars['sort_route_parameters'] = $routeParams;
+        $view->vars['sort_active'] = $active;
     }
 
     /**
