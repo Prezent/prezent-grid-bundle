@@ -7,7 +7,6 @@ use Prezent\Grid\ColumnView;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * Sortable columns
@@ -18,11 +17,6 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 class SortableTypeExtension extends BaseColumnTypeExtension
 {
     /**
-     * @var UrlGeneratorInterface
-     */
-    private $router;
-
-    /**
      * @var RequestStack
      */
     private $requestStack;
@@ -30,31 +24,25 @@ class SortableTypeExtension extends BaseColumnTypeExtension
     /**
      * @var string
      */
-    private $sortFieldParameter;
+    private $fieldParameter;
 
     /**
      * @var string
      */
-    private $sortOrderParameter;
+    private $orderParameter;
 
     /**
      * Constructor
      *
-     * @param UrlGeneratorInterface $router
      * @param RequestStack $requestStack
-     * @param string $sortFieldParameter
-     * @param string $sortOrderParameter
+     * @param string $fieldParameter
+     * @param string $orderParameter
      */
-    public function __construct(
-        UrlGeneratorInterface $router,
-        RequestStack $requestStack,
-        $sortFieldParameter = 'sort_by',
-        $sortOrderParameter = 'sort_order'
-    ) {
-        $this->router = $router;
+    public function __construct(RequestStack $requestStack, $fieldParameter = 'sort_by', $orderParameter = 'sort_order')
+    {
         $this->requestStack = $requestStack;
-        $this->sortFieldParameter = $sortFieldParameter;
-        $this->sortOrderParameter = $sortOrderParameter;
+        $this->fieldParameter = $fieldParameter;
+        $this->orderParameter = $orderParameter;
     }
 
     /**
@@ -68,8 +56,8 @@ class SortableTypeExtension extends BaseColumnTypeExtension
                 'sort_field'            => null,
                 'sort_route'            => null,
                 'sort_route_parameters' => null,
-                'sort_field_parameter'  => $this->sortFieldParameter,
-                'sort_order_parameter'  => $this->sortOrderParameter,
+                'sort_field_parameter'  => $this->fieldParameter,
+                'sort_order_parameter'  => $this->orderParameter,
             ])
             ->setAllowedTypes([
                 'sortable'              => 'bool',
@@ -94,14 +82,14 @@ class SortableTypeExtension extends BaseColumnTypeExtension
         $field = $options['sort_field'] ?: $view->name;
         $routeParams = $options['sort_route_parameters'] ?: $request->attributes->get('_route_params', []);
 
-        if ($field === $request->get($this->sortFieldParameter)) {
-            $order = 'ASC' === $request->get($this->sortOrderParameter) ? 'DESC' : 'ASC';
+        if ($field === $request->get($this->fieldParameter)) {
+            $order = 'ASC' === $request->get($this->orderParameter) ? 'DESC' : 'ASC';
         } else {
             $order = 'ASC';
         }
 
-        $routeParams[$this->sortFieldParameter] = $field;
-        $routeParams[$this->sortOrderParameter] = $order;
+        $routeParams[$this->fieldParameter] = $field;
+        $routeParams[$this->orderParameter] = $order;
 
         $view->vars['sort_route'] = $options['sort_route'] ?: $request->attributes->get('_route');
         $view->vars['sort_route_parameters'] = $routeParams;

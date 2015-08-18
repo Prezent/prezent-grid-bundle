@@ -49,7 +49,6 @@
         </service>
 
         <service id="prezent_grid.column_type_extension.sortable" class="%prezent_grid.column_type_extension.sortable.class%">
-            <argument type="service" id="router" />
             <argument type="service" id="request_stack" />
             <argument>%prezent_grid.sort_field_parameter%</argument>
             <argument>%prezent_grid.sort_order_parameter%</argument>
