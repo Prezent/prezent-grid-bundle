@@ -6,6 +6,8 @@
 
         <parameter key="prezent_grid.extension.core.class">Prezent\Grid\Extension\Core\CoreExtension</parameter>
         <parameter key="prezent_grid.extension.bundle.class">Prezent\GridBundle\Grid\Extension\GridBundleExtension</parameter>
+        <parameter key="prezent_grid.column_type_extension.route.class">Prezent\GridBundle\Grid\Type\RouteTypeExtension</parameter>
+        <parameter key="prezent_grid.column_type_extension.translatable_label.class">Prezent\GridBundle\Grid\Type\TranslatableLabelTypeExtension</parameter>
         <parameter key="prezent_grid.column_type_factory.class">Prezent\Grid\DefaultColumnTypeFactory</parameter>
         <parameter key="prezent_grid.grid_factory.class">Prezent\Grid\DefaultGridFactory</parameter>
         <parameter key="prezent_grid.twig_renderer.class">Prezent\Grid\Twig\GridRenderer</parameter>
@@ -31,9 +33,20 @@
         </service>
 
         <service id="prezent_grid.extension.bundle" class="%prezent_grid.extension.bundle.class%" public="false">
+            <argument />
+            <argument />
+            <tag name="prezent_grid.grid_extension" />
+        </service>
+
+        <!-- Column type extensions -->
+        <service id="prezent_grid.column_type_extension.route" class="%prezent_grid.column_type_extension.route.class%">
             <argument type="service" id="router" />
             <argument type="service" id="prezent_grid.variable_resolver" />
-            <tag name="prezent_grid.grid_extension" />
+            <tag name="prezent_grid.column_type_extension" />
+        </service>
+
+        <service id="prezent_grid.column_type_extension.translatable_label" class="%prezent_grid.column_type_extension.translatable_label.class%">
+            <tag name="prezent_grid.column_type_extension" />
         </service>
 
         <!-- Factories -->

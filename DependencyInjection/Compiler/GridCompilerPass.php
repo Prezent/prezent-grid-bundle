@@ -22,6 +22,7 @@ class GridCompilerPass implements CompilerPassInterface
     {
         $this->addGrids($container);
         $this->addGridExtensions($container);
+        $this->addTypes($container);
         $this->addVariableResolvers($container);
 
         $reflClass = new \ReflectionClass(GridExtension::class);
@@ -73,6 +74,34 @@ class GridCompilerPass implements CompilerPassInterface
         $container
             ->findDefinition('prezent_grid.column_type_factory')
             ->replaceArgument(0, $extensions);
+    }
+
+    /**
+     * Add all column types and extensions
+     *
+     * @param ContainerBuilder $container
+     * @return void
+     */
+    private function addTypes(ContainerBuilder $container)
+    {
+        if (!$container->has('prezent_grid.extension.bundle')) {
+            return;
+        }
+
+        $types = [];
+        foreach ($container->findTaggedServiceIds('prezent_grid.column_type') as $id => $tags) {
+            $types[] = new Reference($id);
+        }
+
+        $extensions = [];
+        foreach ($container->findTaggedServiceIds('prezent_grid.column_type_extension') as $id => $tags) {
+            $extensions[] = new Reference($id);
+        }
+
+        $container
+            ->findDefinition('prezent_grid.extension.bundle')
+            ->replaceArgument(0, $types)
+            ->replaceArgument(1, $extensions);
     }
 
     /**

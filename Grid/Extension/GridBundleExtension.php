@@ -16,14 +16,14 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 class GridBundleExtension extends BaseGridExtension
 {
     /**
-     * @var UrlGeneratorInterface
+     * @var array
      */
-    private $router;
+    private $types;
 
     /**
-     * @var VariableResolver
+     * @var array
      */
-    private $resolver;
+    private $extensions;
 
     /**
      * Constructor
@@ -31,10 +31,18 @@ class GridBundleExtension extends BaseGridExtension
      * @param UrlGeneratorInterface $router
      * @param VariableResolver $resolver
      */
-    public function __construct(UrlGeneratorInterface $router, VariableResolver $resolver)
+    public function __construct(array $types, array $extensions)
     {
-        $this->router = $router;
-        $this->resolver = $resolver;
+        $this->types = $types;
+        $this->extensions = $extensions;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function loadColumnTypes()
+    {
+        return $this->types;
     }
 
     /**
@@ -42,9 +50,6 @@ class GridBundleExtension extends BaseGridExtension
      */
     protected function loadColumnTypeExtensions()
     {
-        return [
-            new Type\RouteTypeExtension($this->router, $this->resolver),
-            new Type\TranslatableLabelTypeExtension(),
-        ];
+        return $this->extensions;
     }
 }
