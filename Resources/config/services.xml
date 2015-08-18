@@ -4,9 +4,12 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <parameters>
 
+        <parameter key="prezent_grid.sort_field_parameter">sort_by</parameter>
+        <parameter key="prezent_grid.sort_order_parameter">sort_order</parameter>
         <parameter key="prezent_grid.extension.core.class">Prezent\Grid\Extension\Core\CoreExtension</parameter>
         <parameter key="prezent_grid.extension.bundle.class">Prezent\GridBundle\Grid\Extension\GridBundleExtension</parameter>
         <parameter key="prezent_grid.column_type_extension.route.class">Prezent\GridBundle\Grid\Type\RouteTypeExtension</parameter>
+        <parameter key="prezent_grid.column_type_extension.sortable.class">Prezent\GridBundle\Grid\Type\SortableTypeExtension</parameter>
         <parameter key="prezent_grid.column_type_extension.translatable_label.class">Prezent\GridBundle\Grid\Type\TranslatableLabelTypeExtension</parameter>
         <parameter key="prezent_grid.column_type_factory.class">Prezent\Grid\DefaultColumnTypeFactory</parameter>
         <parameter key="prezent_grid.grid_factory.class">Prezent\Grid\DefaultGridFactory</parameter>
@@ -42,6 +45,14 @@
         <service id="prezent_grid.column_type_extension.route" class="%prezent_grid.column_type_extension.route.class%">
             <argument type="service" id="router" />
             <argument type="service" id="prezent_grid.variable_resolver" />
+            <tag name="prezent_grid.column_type_extension" />
+        </service>
+
+        <service id="prezent_grid.column_type_extension.sortable" class="%prezent_grid.column_type_extension.sortable.class%">
+            <argument type="service" id="router" />
+            <argument type="service" id="request_stack" />
+            <argument>%prezent_grid.sort_field_parameter%</argument>
+            <argument>%prezent_grid.sort_order_parameter%</argument>
             <tag name="prezent_grid.column_type_extension" />
         </service>
 

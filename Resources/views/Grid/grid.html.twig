@@ -1,7 +1,11 @@
 {% extends 'grid.html.twig' %}
 
 {% block grid_header_label %}
-    {{ label|trans({}, label_translation_domain) }}
+    {% if sort_route is defined and sort_route_parameters is defined %}
+        <a href="{{ path(sort_route, sort_route_parameters) }}">{{ label|trans({}, label_translation_domain) }}</a>
+    {% else %}
+        {{ label|trans({}, label_translation_domain) }}
+    {% endif %}
 {% endblock %}
 
 {%- block grid_boolean_widget -%}
