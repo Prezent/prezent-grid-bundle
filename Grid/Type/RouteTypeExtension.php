@@ -84,6 +84,6 @@ class RouteTypeExtension extends BaseColumnTypeExtension
      */
     public function getExtendedType()
     {
-        return 'column';
+        return 'element';
     }
 }

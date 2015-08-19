@@ -16,3 +16,7 @@
 {%- block grid_boolean_widget -%}
     {{ column.getValue(item)|trans({}, 'PrezentGrid') }}
 {%- endblock -%}
+
+{%- block grid_action -%}
+    <a href="{{ url }}">{{ label|trans({}, label_translation_domain) }}</a>
+{%- endblock -%}
