@@ -2,8 +2,8 @@
 
 namespace Prezent\GridBundle\Grid\Type;
 
-use Prezent\Grid\BaseColumnTypeExtension;
-use Prezent\Grid\ColumnView;
+use Prezent\Grid\BaseElementTypeExtension;
+use Prezent\Grid\ElementView;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -11,10 +11,10 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 /**
  * Sortable columns
  *
- * @see BaseColumnTypeExtension
+ * @see BaseElementTypeExtension
  * @author Sander Marechal
  */
-class SortableTypeExtension extends BaseColumnTypeExtension
+class SortableTypeExtension extends BaseElementTypeExtension
 {
     /**
      * @var RequestStack
@@ -73,7 +73,7 @@ class SortableTypeExtension extends BaseColumnTypeExtension
     /**
      * {@inheritDoc}
      */
-    public function buildView(ColumnView $view, array $options)
+    public function buildView(ElementView $view, array $options)
     {
         if (!$options['sortable'] || !($request = $this->requestStack->getCurrentRequest())) {
             return;

@@ -2,19 +2,19 @@
 
 namespace Prezent\GridBundle\Grid\Type;
 
-use Prezent\Grid\BaseColumnTypeExtension;
-use Prezent\Grid\ColumnView;
+use Prezent\Grid\BaseElementTypeExtension;
+use Prezent\Grid\ElementView;
 use Prezent\Grid\VariableResolver;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
- * Translate header labels
+ * generate URLs from routes
  *
- * @see BaseColumnTypeExtension
+ * @see BaseElementTypeExtension
  * @author Sander Marechal
  */
-class RouteTypeExtension extends BaseColumnTypeExtension
+class RouteTypeExtension extends BaseElementTypeExtension
 {
     /**
      * @var UrlGeneratorInterface
@@ -53,7 +53,7 @@ class RouteTypeExtension extends BaseColumnTypeExtension
     /**
      * {@inheritDoc}
      */
-    public function buildView(ColumnView $view, array $options)
+    public function buildView(ElementView $view, array $options)
     {
         if (isset($options['url']) || !isset($options['route'])) {
             return;
@@ -66,7 +66,7 @@ class RouteTypeExtension extends BaseColumnTypeExtension
     /**
      * {@inheritDoc}
      */
-    public function bindView(ColumnView $view, $item)
+    public function bindView(ElementView $view, $item)
     {
         if (!isset($view->vars['route'])) {
             return;

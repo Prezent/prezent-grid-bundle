@@ -62,7 +62,7 @@ class GridCompilerPass implements CompilerPassInterface
      */
     private function addGridExtensions(ContainerBuilder $container)
     {
-        if (!$container->has('prezent_grid.column_type_factory')) {
+        if (!$container->has('prezent_grid.element_type_factory')) {
             return;
         }
 
@@ -72,12 +72,12 @@ class GridCompilerPass implements CompilerPassInterface
         }
 
         $container
-            ->findDefinition('prezent_grid.column_type_factory')
+            ->findDefinition('prezent_grid.element_type_factory')
             ->replaceArgument(0, $extensions);
     }
 
     /**
-     * Add all column types and extensions
+     * Add all element types and extensions
      *
      * @param ContainerBuilder $container
      * @return void
@@ -89,12 +89,12 @@ class GridCompilerPass implements CompilerPassInterface
         }
 
         $types = [];
-        foreach ($container->findTaggedServiceIds('prezent_grid.column_type') as $id => $tags) {
+        foreach ($container->findTaggedServiceIds('prezent_grid.element_type') as $id => $tags) {
             $types[] = new Reference($id);
         }
 
         $extensions = [];
-        foreach ($container->findTaggedServiceIds('prezent_grid.column_type_extension') as $id => $tags) {
+        foreach ($container->findTaggedServiceIds('prezent_grid.element_type_extension') as $id => $tags) {
             $extensions[] = new Reference($id);
         }
 

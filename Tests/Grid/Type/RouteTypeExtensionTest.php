@@ -2,7 +2,7 @@
 
 namespace Prezent\GridBundle\Tests\Grid\Type;
 
-use Prezent\Grid\ColumnView;
+use Prezent\Grid\ElementView;
 use Prezent\Grid\VariableResolver;
 use Prezent\GridBundle\Grid\Type\RouteTypeExtension;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -19,7 +19,7 @@ class RouteTypeExtensionTest extends \PHPUnit_Framework_TestCase
         $optionsResolver = new OptionsResolver();
         $extension->configureOptions($optionsResolver);
 
-        $view = $this->getMockBuilder(ColumnView::class)->disableOriginalConstructor()->getMock();
+        $view = $this->getMockBuilder(ElementView::class)->disableOriginalConstructor()->getMock();
         $extension->buildView($view, [
             'url' => '/some/url',
             'route' => 'some_route',
@@ -43,7 +43,7 @@ class RouteTypeExtensionTest extends \PHPUnit_Framework_TestCase
         $optionsResolver = new OptionsResolver();
         $extension->configureOptions($optionsResolver);
 
-        $view = $this->getMockBuilder(ColumnView::class)->disableOriginalConstructor()->getMock();
+        $view = $this->getMockBuilder(ElementView::class)->disableOriginalConstructor()->getMock();
         $extension->buildView($view, [
             'route' => 'some_route',
             'route_parameters' => [

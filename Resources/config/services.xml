@@ -8,10 +8,10 @@
         <parameter key="prezent_grid.sort_order_parameter">sort_order</parameter>
         <parameter key="prezent_grid.extension.core.class">Prezent\Grid\Extension\Core\CoreExtension</parameter>
         <parameter key="prezent_grid.extension.bundle.class">Prezent\GridBundle\Grid\Extension\GridBundleExtension</parameter>
-        <parameter key="prezent_grid.column_type_extension.route.class">Prezent\GridBundle\Grid\Type\RouteTypeExtension</parameter>
-        <parameter key="prezent_grid.column_type_extension.sortable.class">Prezent\GridBundle\Grid\Type\SortableTypeExtension</parameter>
-        <parameter key="prezent_grid.column_type_extension.translatable_label.class">Prezent\GridBundle\Grid\Type\TranslatableLabelTypeExtension</parameter>
-        <parameter key="prezent_grid.column_type_factory.class">Prezent\Grid\DefaultColumnTypeFactory</parameter>
+        <parameter key="prezent_grid.element_type_extension.route.class">Prezent\GridBundle\Grid\Type\RouteTypeExtension</parameter>
+        <parameter key="prezent_grid.element_type_extension.sortable.class">Prezent\GridBundle\Grid\Type\SortableTypeExtension</parameter>
+        <parameter key="prezent_grid.element_type_extension.translatable_label.class">Prezent\GridBundle\Grid\Type\TranslatableLabelTypeExtension</parameter>
+        <parameter key="prezent_grid.element_type_factory.class">Prezent\Grid\DefaultElementTypeFactory</parameter>
         <parameter key="prezent_grid.grid_factory.class">Prezent\Grid\DefaultGridFactory</parameter>
         <parameter key="prezent_grid.twig_renderer.class">Prezent\Grid\Twig\GridRenderer</parameter>
         <parameter key="prezent_grid.twig_renderer.theme">PrezentGridBundle:Grid:grid.html.twig</parameter>
@@ -41,31 +41,31 @@
             <tag name="prezent_grid.grid_extension" />
         </service>
 
-        <!-- Column type extensions -->
-        <service id="prezent_grid.column_type_extension.route" class="%prezent_grid.column_type_extension.route.class%">
+        <!-- Element type extensions -->
+        <service id="prezent_grid.element_type_extension.route" class="%prezent_grid.element_type_extension.route.class%">
             <argument type="service" id="router" />
             <argument type="service" id="prezent_grid.variable_resolver" />
-            <tag name="prezent_grid.column_type_extension" />
+            <tag name="prezent_grid.element_type_extension" />
         </service>
 
-        <service id="prezent_grid.column_type_extension.sortable" class="%prezent_grid.column_type_extension.sortable.class%">
+        <service id="prezent_grid.element_type_extension.sortable" class="%prezent_grid.element_type_extension.sortable.class%">
             <argument type="service" id="request_stack" />
             <argument>%prezent_grid.sort_field_parameter%</argument>
             <argument>%prezent_grid.sort_order_parameter%</argument>
-            <tag name="prezent_grid.column_type_extension" />
+            <tag name="prezent_grid.element_type_extension" />
         </service>
 
-        <service id="prezent_grid.column_type_extension.translatable_label" class="%prezent_grid.column_type_extension.translatable_label.class%">
-            <tag name="prezent_grid.column_type_extension" />
+        <service id="prezent_grid.element_type_extension.translatable_label" class="%prezent_grid.element_type_extension.translatable_label.class%">
+            <tag name="prezent_grid.element_type_extension" />
         </service>
 
         <!-- Factories -->
-        <service id="prezent_grid.column_type_factory" class="%prezent_grid.column_type_factory.class%">
+        <service id="prezent_grid.element_type_factory" class="%prezent_grid.element_type_factory.class%">
             <argument />
         </service>
 
         <service id="prezent_grid.grid_factory" class="%prezent_grid.grid_factory.class%">
-            <argument type="service" id="prezent_grid.column_type_factory" />
+            <argument type="service" id="prezent_grid.element_type_factory" />
             <argument />
         </service>
 
