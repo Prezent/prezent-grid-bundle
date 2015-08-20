@@ -21,7 +21,7 @@ The route name to generate an URL from
 ### `route_parameters`
 
 An array of route parameters. Parameter values which contain braces are interpreted as property paths into your row
-and will be replaced.
+and will be replaced. You can also suply a callback which will recieve the row as it's only parameter:
 
 Example:
 
@@ -31,6 +31,9 @@ $builder->addAction('edit', [
     'route' => 'your_bundle_edit',
     'route_parameters' => [
         'id' => '{id}',
+        'slug' => function ($item) {
+            return slugify($item->getName());
+        }
     ]
 ]);
 ```
@@ -68,3 +71,14 @@ The name of the request attribute that specifies which field you should sort on.
 ### `sort_order_parameter`
 
 The name of the request attribute that specifies which direction you should sort in (ASC or DESC). Defaults to `'sort_order'`.
+
+Example usage:
+
+```php
+<?php
+
+$builder->addColumn('name', 'string', [
+    'sortable' => true,
+    'sort_field' => 'name.raw',
+]);
+```
