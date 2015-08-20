@@ -12,9 +12,8 @@ class RouteTypeExtensionTest extends \PHPUnit_Framework_TestCase
 {
     public function testSkipOnUrl()
     {
-        $router = $this->getMock(UrlGeneratorInterface::class);
         $resolver = $this->getMock(VariableResolver::class);
-        $extension = new RouteTypeExtension($router, $resolver);
+        $extension = new RouteTypeExtension($resolver);
 
         $optionsResolver = new OptionsResolver();
         $extension->configureOptions($optionsResolver);
@@ -28,17 +27,12 @@ class RouteTypeExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse(isset($view->vars['route']));
     }
 
-    public function testUrlGeneration()
+    public function testResolver()
     {
-        $router = $this->getMock(UrlGeneratorInterface::class);
-        $router->method('generate')->will($this->returnCallback(function ($route, $params) {
-            return $route . '?' . http_build_query($params);
-        }));
-
         $resolver = $this->getMock(VariableResolver::class, ['resolve']);
         $resolver->method('resolve')->willReturn('1');
 
-        $extension = new RouteTypeExtension($router, $resolver);
+        $extension = new RouteTypeExtension($resolver);
 
         $optionsResolver = new OptionsResolver();
         $extension->configureOptions($optionsResolver);
@@ -53,6 +47,6 @@ class RouteTypeExtensionTest extends \PHPUnit_Framework_TestCase
 
         $extension->bindView($view, new \stdClass());
 
-        $this->assertEquals('some_route?id=1', $view->vars['url']);
+        $this->assertEquals('1', $view->vars['route_parameters']['id']);
     }
 }

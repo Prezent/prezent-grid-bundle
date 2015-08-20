@@ -43,7 +43,6 @@
 
         <!-- Element type extensions -->
         <service id="prezent_grid.element_type_extension.route" class="%prezent_grid.element_type_extension.route.class%">
-            <argument type="service" id="router" />
             <argument type="service" id="prezent_grid.variable_resolver" />
             <tag name="prezent_grid.element_type_extension" />
         </service>

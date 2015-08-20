@@ -17,11 +17,6 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 class RouteTypeExtension extends BaseElementTypeExtension
 {
     /**
-     * @var UrlGeneratorInterface
-     */
-    private $router;
-
-    /**
      * @var VariableResolver
      */
     private $resolver;
@@ -29,12 +24,10 @@ class RouteTypeExtension extends BaseElementTypeExtension
     /**
      * Constructor
      *
-     * @param UrlGeneratorInterface $router
      * @param VariableResolver $resolver
      */
-    public function __construct(UrlGeneratorInterface $router, VariableResolver $resolver)
+    public function __construct(VariableResolver $resolver)
     {
-        $this->router = $router;
         $this->resolver = $resolver;
     }
 
@@ -68,15 +61,13 @@ class RouteTypeExtension extends BaseElementTypeExtension
      */
     public function bindView(ElementView $view, $item)
     {
-        if (!isset($view->vars['route'])) {
+        if (!isset($view->vars['route_parameters'])) {
             return;
         }
 
         foreach ($view->vars['route_parameters'] as &$value) {
             $value = $this->resolver->resolve($value, $item);
         }
-
-        $view->vars['url'] = $this->router->generate($view->vars['route'], $view->vars['route_parameters']);
     }
 
     /**
