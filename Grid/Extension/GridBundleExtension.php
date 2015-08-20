@@ -40,7 +40,7 @@ class GridBundleExtension extends BaseGridExtension
     /**
      * {@inheritDoc}
      */
-    protected function loadColumnTypes()
+    protected function loadElementTypes()
     {
         return $this->types;
     }
@@ -48,7 +48,7 @@ class GridBundleExtension extends BaseGridExtension
     /**
      * {@inheritDoc}
      */
-    protected function loadColumnTypeExtensions()
+    protected function loadElementTypeExtensions()
     {
         return $this->extensions;
     }
