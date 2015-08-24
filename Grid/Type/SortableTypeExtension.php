@@ -84,6 +84,7 @@ class SortableTypeExtension extends BaseElementTypeExtension
 
         $field = $options['sort_field'] ?: $view->name;
         $routeParams = $options['sort_route_parameters'] ?: $request->attributes->get('_route_params', []);
+        $routeParams = array_merge($routeParams, $request->query->all());
 
         if ($field === $request->get($this->fieldParameter)) {
             $active = $request->get($this->orderParameter);
