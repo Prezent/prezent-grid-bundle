@@ -27,8 +27,8 @@
 
 {%- block grid_action -%}
     {% if route is defined %}
-        <a href="{{ path(route, route_parameters) }}">{{ label|trans({}, label_translation_domain) }}</a>
+        <a href="{{ path(route, route_parameters) }}" {{ block('grid_attributes') }}>{{ label|trans({}, label_translation_domain) }}</a>
     {% else %}
-        <a href="{{ url }}">{{ label|trans({}, label_translation_domain) }}</a>
+        <a href="{{ url }}" {{ block('grid_attributes') }}>{{ label|trans({}, label_translation_domain) }}</a>
     {% endif %}
 {%- endblock -%}
