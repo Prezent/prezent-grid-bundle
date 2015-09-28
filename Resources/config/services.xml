@@ -14,7 +14,9 @@
         <parameter key="prezent_grid.element_type_factory.class">Prezent\Grid\DefaultElementTypeFactory</parameter>
         <parameter key="prezent_grid.grid_factory.class">Prezent\Grid\DefaultGridFactory</parameter>
         <parameter key="prezent_grid.twig_renderer.class">Prezent\Grid\Twig\GridRenderer</parameter>
-        <parameter key="prezent_grid.twig_renderer.theme">PrezentGridBundle:Grid:grid.html.twig</parameter>
+        <parameter key="prezent_grid.twig_renderer.themes" type="collection">
+            <parameter>PrezentGridBundle:Grid:grid.html.twig</parameter>
+        </parameter>
         <parameter key="prezent_grid.twig_extension.class">Prezent\Grid\Twig\GridExtension</parameter>
         <parameter key="prezent_grid.variable_resolver.callback.class">Prezent\Grid\VariableResolver\CallbackResolver</parameter>
         <parameter key="prezent_grid.variable_resolver.chain.class">Prezent\Grid\VariableResolver\ChainResolver</parameter>
@@ -72,7 +74,7 @@
 
         <!-- Rendering -->
         <service id="prezent_grid.twig_renderer" class="%prezent_grid.twig_renderer.class%" public="false">
-            <argument>%prezent_grid.twig_renderer.theme%</argument>
+            <argument>%prezent_grid.twig_renderer.themes%</argument>
         </service>
 
         <service id="prezent_grid.twig_extension" class="%prezent_grid.twig_extension.class%" public="false">

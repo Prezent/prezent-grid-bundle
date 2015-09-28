@@ -26,8 +26,8 @@ class PrezentGridExtension extends Extension
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
 
-        if ($config['theme']) {
-            $container->getDefinition('prezent_grid.twig_renderer')->replaceArgument(0, $config['theme']);
+        if ($config['themes']) {
+            $container->setParameter('prezent_grid.twig_renderer.themes', $config['themes']);
         }
     }
 }

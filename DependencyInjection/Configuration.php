@@ -20,9 +20,8 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->scalarNode('theme')
-                    ->defaultNull()
-                    ->info('Grid theme twig template to use')
+                ->arrayNode('themes')
+                    ->prototype('scalar')->end()
                 ->end()
             ->end()
         ;
