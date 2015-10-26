@@ -24,9 +24,11 @@ public function registerBundles()
 
 ## Configuration
 
-You can set the theme which will be used by the renderer:
+You can set the themes which will be used by the renderer:
 
 ```yml
 prezent_grid:
-    theme: MyBundle:Grid:custom.html.twig
+    themes: 
+        - PrezentGridBundle:Grid:grid.html.twig
+        - MyBundle:Grid:custom.html.twig
 ```
