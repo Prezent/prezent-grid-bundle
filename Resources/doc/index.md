@@ -14,4 +14,4 @@ For a complete guide to using the grid library see the [prezent/grid documentati
 
 1. [Installation](installation.md)
 2. [Features](features.md)
-3. [Service configuration](dic.md)
+3. [Service configuration](serivces.md)
