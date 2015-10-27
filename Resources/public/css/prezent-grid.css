@@ -9,8 +9,8 @@
     height: 0;
     border: 5px solid rgba(255, 255, 255, 0);
     position: absolute;
-    top: 0px;
-    right: -10px;
+    top: 0;
+    right: -15px;
     -moz-transform: scale(.9999);
 }
 
