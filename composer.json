@@ -12,6 +12,9 @@
         "symfony/translation": "~2.3",
         "symfony/twig-bundle": "~2.3"
     },
+    "suggest": {
+        "dms/twig-extension-bundle": "A bundle to autmatically load the Twig Extensions into your application"
+    },
     "license": "MIT",
     "authors": [
         {
