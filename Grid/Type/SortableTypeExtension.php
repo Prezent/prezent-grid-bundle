@@ -6,6 +6,7 @@ use Prezent\Grid\BaseElementTypeExtension;
 use Prezent\Grid\ElementView;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\Options;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
@@ -48,7 +49,7 @@ class SortableTypeExtension extends BaseElementTypeExtension
     /**
      * {@inheritDoc}
      */
-    public function configureOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver
             ->setDefaults([
@@ -59,14 +60,12 @@ class SortableTypeExtension extends BaseElementTypeExtension
                 'sort_field_parameter'  => $this->fieldParameter,
                 'sort_order_parameter'  => $this->orderParameter,
             ])
-            ->setAllowedTypes([
-                'sortable'              => 'bool',
-                'sort_field'            => ['null', 'string'],
-                'sort_route'            => ['null', 'string'],
-                'sort_route_parameters' => ['null', 'array'],
-                'sort_field_parameter'  => 'string',
-                'sort_order_parameter'  => 'string',
-            ])
+            ->setAllowedTypes('sortable', 'bool')
+            ->setAllowedTypes('sort_field', ['null', 'string'])
+            ->setAllowedTypes('sort_route', ['null', 'string'])
+            ->setAllowedTypes('sort_route_parameters', ['null', 'array'])
+            ->setAllowedTypes('sort_field_parameter', 'string')
+            ->setAllowedTypes('sort_order_parameter', 'string')
         ;
     }
 

@@ -4,7 +4,7 @@ namespace Prezent\GridBundle\Grid\Type;
 
 use Prezent\Grid\BaseElementTypeExtension;
 use Prezent\Grid\ElementView;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Translate labels
@@ -17,7 +17,7 @@ class TranslatableLabelTypeExtension extends BaseElementTypeExtension
     /**
      * {@inheritDoc}
      */
-    public function configureOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'label_translation_domain' => 'messages',

@@ -5,8 +5,7 @@ namespace Prezent\GridBundle\Grid\Type;
 use Prezent\Grid\BaseElementTypeExtension;
 use Prezent\Grid\ElementView;
 use Prezent\Grid\VariableResolver;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * generate URLs from routes
@@ -34,7 +33,7 @@ class RouteTypeExtension extends BaseElementTypeExtension
     /**
      * {@inheritDoc}
      */
-    public function configureOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver
             ->setDefined(['url', 'route', 'route_parameters'])
