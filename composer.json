@@ -7,13 +7,13 @@
     "require": {
         "php": "~5.5",
         "ext-intl": "*",
-        "prezent/grid": "~0.3.0",
-        "symfony/framework-bundle": "~2.3",
-        "symfony/translation": "~2.3",
-        "symfony/twig-bundle": "~2.3"
+        "prezent/grid": "~0.4.0",
+        "symfony/framework-bundle": "~2.3|~3.0",
+        "symfony/translation": "~2.3|~3.0",
+        "symfony/twig-bundle": "~2.3|~3.0"
     },
     "suggest": {
-        "dms/twig-extension-bundle": "A bundle to autmatically load the Twig Extensions into your application"
+        "dms/twig-extension-bundle": "A bundle to automatically load the Twig Extensions into your application"
     },
     "license": "MIT",
     "authors": [

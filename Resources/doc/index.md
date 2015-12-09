@@ -1,7 +1,7 @@
 prezent/grid-bundle
 ===================
 
-Integrate the [prezent/grid](https://github.com/Prezent/prezent-grid) library in Symfony2. It also provides a few extra
+Integrate the [prezent/grid](https://github.com/Prezent/prezent-grid) library into Symfony. It also provides a few extra
 features such as:
 
 * Sortable columns
