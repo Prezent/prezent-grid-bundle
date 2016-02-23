@@ -25,10 +25,9 @@
     </parameters>
     <services>
 
-        <service id="prezent_grid.accessor" class="Symfony\Component\PropertyAccess\PropertyAccessorInterface"
-            factory-class="Symfony\Component\PropertyAccess\PropertyAccess"
-            factory-method="createPropertyAccessor"
-            public="false" />
+	<service id="prezent_grid.accessor" class="Symfony\Component\PropertyAccess\PropertyAccessorInterface">
+            <factory class="Symfony\Component\PropertyAccess\PropertyAccess" method="createPropertyAccessor" />
+        </service>
 
         <!-- Grid extensions -->
         <service id="prezent_grid.extension.core" class="%prezent_grid.extension.core.class%" public="false">
