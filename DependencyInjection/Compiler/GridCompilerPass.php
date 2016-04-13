@@ -38,32 +38,13 @@ class GridCompilerPass implements CompilerPassInterface
      */
     private function addGrids(ContainerBuilder $container)
     {
-        if (!$container->has('prezent_grid.grid_factory')) {
+        if (!$container->has('prezent_grid.extension.bundle')) {
             return;
         }
 
-        $grids = [];
+        $types = [];
         foreach ($container->findTaggedServiceIds('prezent_grid.grid') as $id => $tags) {
-            foreach ($tags as $tag) {
-                $grids[$tag['alias']] = new Reference($id);
-            }
-        }
-
-        $container
-            ->findDefinition('prezent_grid.grid_factory')
-            ->replaceArgument(1, $grids);
-    }
-
-    /**
-     * Add all grid extensions
-     *
-     * @param ContainerBuilder $container
-     * @return void
-     */
-    private function addGridExtensions(ContainerBuilder $container)
-    {
-        if (!$container->has('prezent_grid.element_type_factory')) {
-            return;
+            $types[] = new Reference($id);
         }
 
         $extensions = [];
@@ -72,8 +53,9 @@ class GridCompilerPass implements CompilerPassInterface
         }
 
         $container
-            ->findDefinition('prezent_grid.element_type_factory')
-            ->replaceArgument(0, $extensions);
+            ->findDefinition('prezent_grid.extension.bundle')
+            ->replaceArgument(0, $types)
+            ->replaceArgument(1, $extensions);
     }
 
     /**
@@ -100,8 +82,34 @@ class GridCompilerPass implements CompilerPassInterface
 
         $container
             ->findDefinition('prezent_grid.extension.bundle')
-            ->replaceArgument(0, $types)
-            ->replaceArgument(1, $extensions);
+            ->replaceArgument(2, $types)
+            ->replaceArgument(3, $extensions);
+    }
+
+    /**
+     * Add all grid extensions
+     *
+     * @param ContainerBuilder $container
+     * @return void
+     */
+    private function addGridExtensions(ContainerBuilder $container)
+    {
+        if (!$container->has('prezent_grid.element_type_factory')) {
+            return;
+        }
+
+        $extensions = [];
+        foreach ($container->findTaggedServiceIds('prezent_grid.grid_extension') as $id => $tags) {
+            $extensions[] = new Reference($id);
+        }
+
+        $container
+            ->findDefinition('prezent_grid.grid_type_factory')
+            ->replaceArgument(0, $extensions);
+
+        $container
+            ->findDefinition('prezent_grid.element_type_factory')
+            ->replaceArgument(0, $extensions);
     }
 
     /**

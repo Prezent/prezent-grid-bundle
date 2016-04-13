@@ -18,23 +18,57 @@ class GridBundleExtension extends BaseGridExtension
     /**
      * @var array
      */
-    private $types;
+    private $gridTypes = [];
 
     /**
      * @var array
      */
-    private $extensions;
+    private $gridTypeExtensions = [];
+
+    /**
+     * @var array
+     */
+    private $elementTypes = [];
+
+    /**
+     * @var array
+     */
+    private $elementTypeExtensions = [];
 
     /**
      * Constructor
      *
-     * @param UrlGeneratorInterface $router
-     * @param VariableResolver $resolver
+     * @param array $gridTypes
+     * @param array $gridTypeExtensions
+     * @param array $elementTypes
+     * @param array $elementTypeExtensions
      */
-    public function __construct(array $types, array $extensions)
+    public function __construct(
+        array $gridTypes,
+        array $gridTypeExtensions,
+        array $elementTypes,
+        array $elementTypeExtensions
+    ) {
+        $this->gridTypes = $gridTypes;
+        $this->gridTypeExtensions = $gridTypeExtensions;
+        $this->elementTypes = $elementTypes;
+        $this->elementTypeExtensions = $elementTypeExtensions;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function loadGridTypes()
     {
-        $this->types = $types;
-        $this->extensions = $extensions;
+        return $this->gridTypes;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function loadGridTypeExtensions()
+    {
+        return $this->gridTypeExtensions;
     }
 
     /**
@@ -42,7 +76,7 @@ class GridBundleExtension extends BaseGridExtension
      */
     protected function loadElementTypes()
     {
-        return $this->types;
+        return $this->elementTypes;
     }
 
     /**
@@ -50,6 +84,6 @@ class GridBundleExtension extends BaseGridExtension
      */
     protected function loadElementTypeExtensions()
     {
-        return $this->extensions;
+        return $this->elementTypeExtensions;
     }
 }

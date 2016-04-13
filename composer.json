@@ -2,12 +2,12 @@
     "name": "prezent/grid-bundle",
     "type": "symfony-bundle",
     "description": "Generic data grids and lists using prezent-grid",
-    "keywords": ["grid", "datagrid", "list"],
+    "keywords": ["grid", "datagrid", "list", "table"],
     "homepage": "http://www.prezent.nl",
     "require": {
         "php": "~5.5",
         "ext-intl": "*",
-        "prezent/grid": ">=0.4 <0.7",
+        "prezent/grid": ">=0.7 <0.8",
         "symfony/framework-bundle": "~2.6|~3.0",
         "symfony/translation": "~2.3|~3.0",
         "symfony/twig-bundle": "~2.3|~3.0"
