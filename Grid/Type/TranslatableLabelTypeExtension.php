@@ -4,6 +4,7 @@ namespace Prezent\GridBundle\Grid\Type;
 
 use Prezent\Grid\BaseElementTypeExtension;
 use Prezent\Grid\ElementView;
+use Prezent\Grid\Extension\Core\Type\ElementType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -37,6 +38,6 @@ class TranslatableLabelTypeExtension extends BaseElementTypeExtension
      */
     public function getExtendedType()
     {
-        return 'element';
+        return ElementType::class;
     }
 }

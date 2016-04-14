@@ -2,88 +2,152 @@
 
 namespace Prezent\GridBundle\Grid\Extension;
 
-use Prezent\Grid\BaseGridExtension;
-use Prezent\Grid\VariableResolver;
-use Prezent\GridBundle\Grid\Type;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Prezent\Grid\Exception\InvalidArgumentException;
+use Prezent\Grid\GridExtension;
 
 /**
- * Symfony type extensions
+ * Lazy-load grid types and element types
  *
  * @see BaseGridExtension
  * @author Sander Marechal
  */
-class GridBundleExtension extends BaseGridExtension
+class GridBundleExtension implements GridExtension
 {
     /**
      * @var array
      */
-    private $gridTypes = [];
+    private $gridTypeIds;
 
     /**
      * @var array
      */
-    private $gridTypeExtensions = [];
+    private $gridtypeExtensionIds;
 
     /**
      * @var array
      */
-    private $elementTypes = [];
+    private $elementTypeIds;
 
     /**
      * @var array
      */
-    private $elementTypeExtensions = [];
+    private $elementTypeExtensionIds;
 
     /**
      * Constructor
      *
-     * @param array $gridTypes
-     * @param array $gridTypeExtensions
-     * @param array $elementTypes
-     * @param array $elementTypeExtensions
+     * @param ContainerInterface $container
+     * @param array $gridTypeIds
+     * @param array $gridTypeExtensionIds
+     * @param array $elementTypeIds
+     * @param array $elementTypeExtensionIds
      */
     public function __construct(
-        array $gridTypes,
-        array $gridTypeExtensions,
-        array $elementTypes,
-        array $elementTypeExtensions
+        ContainerInterface $container,
+        array $gridTypeIds,
+        array $gridTypeExtensionIds,
+        array $elementTypeIds,
+        array $elementTypeExtensionIds
     ) {
-        $this->gridTypes = $gridTypes;
-        $this->gridTypeExtensions = $gridTypeExtensions;
-        $this->elementTypes = $elementTypes;
-        $this->elementTypeExtensions = $elementTypeExtensions;
+        $this->container = $container;
+        $this->gridTypeIds = $gridTypeIds;
+        $this->gridTypeExtensionIds = $gridTypeExtensionIds;
+        $this->elementTypeIds = $elementTypeIds;
+        $this->elementTypeExtensionIds = $elementTypeExtensionIds;
     }
 
     /**
      * {@inheritDoc}
      */
-    protected function loadGridTypes()
+    public function hasGridType($name)
     {
-        return $this->gridTypes;
+        return isset($this->gridTypeIds[$name]);
     }
 
     /**
      * {@inheritDoc}
      */
-    protected function loadGridTypeExtensions()
+    public function getGridType($name)
     {
-        return $this->gridTypeExtensions;
+        if (!$this->hasGridType($name)) {
+            throw new InvalidArgumentException(sprintf('The grid type "%s" is not registered with the service container.', $name));
+        }
+
+        return $this->container->get($this->gridTypeIds[$name]);
     }
 
     /**
      * {@inheritDoc}
      */
-    protected function loadElementTypes()
+    public function getGridTypeExtensions($name)
     {
-        return $this->elementTypes;
+        $extensions = [];
+
+        if (isset($this->gridTypeExtensionIds[$name])) {
+            foreach ($this->gridTypeExtensionIds[$name] as $serviceId) {
+                $extensions[] = $this->loadExtension($serviceId, $name);
+            }
+        }
+
+        return $extensions;
     }
 
     /**
      * {@inheritDoc}
      */
-    protected function loadElementTypeExtensions()
+    public function hasElementType($name)
     {
-        return $this->elementTypeExtensions;
+        return isset($this->elementTypeIds[$name]);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getElementType($name)
+    {
+        if (!$this->hasElementType($name)) {
+            throw new InvalidArgumentException(sprintf('The element type "%s" is not registered with the service container.', $name));
+        }
+
+        return $this->container->get($this->elementTypeIds[$name]);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getElementTypeExtensions($name)
+    {
+        $extensions = [];
+
+        if (isset($this->elementTypeExtensionIds[$name])) {
+            foreach ($this->elementTypeExtensionIds[$name] as $serviceId) {
+                $extensions[] = $this->loadExtension($serviceId, $name);
+            }
+        }
+
+        return $extensions;
+    }
+
+    /**
+     * Load a type extension
+     *
+     * @param string $serviceId
+     * @param string $name
+     * @return mixed
+     */
+    private function loadExtension($serviceId, $name)
+    {
+        $extension = $this->container->get($serviceId);
+
+        if ($extension->getExtendedType() !== $name) {
+            throw new InvalidArgumentException(sprintf(
+                'The extended type specified for the service "%s" does not match the actual extended type. Expected "%s", given "%s".',
+                $serviceId,
+                $name,
+                $extension->getExtendedType()
+            ));
+        }
+
+        return $extension;
     }
 }

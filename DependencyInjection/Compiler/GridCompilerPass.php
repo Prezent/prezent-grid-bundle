@@ -21,8 +21,8 @@ class GridCompilerPass implements CompilerPassInterface
     public function process(ContainerBuilder $container)
     {
         $this->addGrids($container);
-        $this->addGridExtensions($container);
         $this->addTypes($container);
+        $this->addGridExtensions($container);
         $this->addVariableResolvers($container);
 
         $reflClass = new \ReflectionClass(GridExtension::class);
@@ -42,15 +42,8 @@ class GridCompilerPass implements CompilerPassInterface
             return;
         }
 
-        $types = [];
-        foreach ($container->findTaggedServiceIds('prezent_grid.grid') as $id => $tags) {
-            $types[] = new Reference($id);
-        }
-
-        $extensions = [];
-        foreach ($container->findTaggedServiceIds('prezent_grid.grid_extension') as $id => $tags) {
-            $extensions[] = new Reference($id);
-        }
+        $types = $this->findTypes($container, 'prezent_grid.grid');
+        $extensions = $this->findTypeExtensions($container, 'prezent_grid.grid_extension');
 
         $container
             ->findDefinition('prezent_grid.extension.bundle')
@@ -70,15 +63,8 @@ class GridCompilerPass implements CompilerPassInterface
             return;
         }
 
-        $types = [];
-        foreach ($container->findTaggedServiceIds('prezent_grid.element_type') as $id => $tags) {
-            $types[] = new Reference($id);
-        }
-
-        $extensions = [];
-        foreach ($container->findTaggedServiceIds('prezent_grid.element_type_extension') as $id => $tags) {
-            $extensions[] = new Reference($id);
-        }
+        $types = $this->findTypes($container, 'prezent_grid.element_type');
+        $extensions = $this->findTypeExtensions($container, 'prezent_grid.element_type_extension');
 
         $container
             ->findDefinition('prezent_grid.extension.bundle')
@@ -132,5 +118,65 @@ class GridCompilerPass implements CompilerPassInterface
         $container
             ->findDefinition('prezent_grid.variable_resolver')
             ->replaceArgument(0, $resolvers);
+    }
+
+    /**
+     * Find types using a tag
+     *
+     * @param string $tag
+     * @return array
+     */
+    private function findTypes(ContainerBuilder $container, $tag)
+    {
+        $types = [];
+
+        foreach ($container->findTaggedServiceIds($tag) as $id => $tags) {
+            $definition = $container->getDefinition($id);
+
+            if (!$definition->isPublic()) {
+                throw new \InvalidArgumentException(
+                    sprintf('The service "%s" must be public as grid types are lazy-loaded.', $id)
+                );
+            }
+
+            // Support type access by FQCN
+            $types[$definition->getClass()] = $id;
+        }
+
+        return $types;
+    }
+
+    /**
+     * Find type extensions using a tag
+     *
+     * @param ContainerBuilder $container
+     * @param string $tag
+     * @return array
+     */
+    private function findTypeExtensions(ContainerBuilder $container, $tag)
+    {
+        $typeExtensions = [];
+
+        foreach ($container->findTaggedServiceIds($tag) as $id => $tags) {
+            $definition = $container->getDefinition($id);
+
+            if (!$definition->isPublic()) {
+                throw new \InvalidArgumentException(
+                    sprintf('The service "%s" must be public as grid type extensions are lazy-loaded.', $id)
+                );
+            }
+
+            if (isset($tag[0]['extended_type'])) {
+                $extendedType = $tag[0]['extended_type'];
+            } else {
+                throw new \InvalidArgumentException(
+                    sprintf('Tagged grid type extension must have the extended type configured using the extended_type, none was configured for the "%s" service.', $id)
+                );
+            }
+
+            $typeExtensions[$extendedType][] = $id;
+        }
+
+        return $typeExtensions;
     }
 }

@@ -12,7 +12,7 @@ domain, but you can set a custom domain using the `label_translation_domain` opt
 
 ## Routes
 
-You can generate URLs from routes for columns and actions. Two new options have been added to teh base element type:
+You can generate URLs from routes for columns and actions. Two new options have been added to the base element type:
 
 ### `route`
 
@@ -77,7 +77,7 @@ Example usage:
 ```php
 <?php
 
-$builder->addColumn('name', 'string', [
+$builder->addColumn('name', StringType::class, [
     'sortable' => true,
     'sort_field' => 'name.raw',
 ]);

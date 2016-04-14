@@ -4,6 +4,7 @@ namespace Prezent\GridBundle\Grid\Type;
 
 use Prezent\Grid\BaseElementTypeExtension;
 use Prezent\Grid\ElementView;
+use Prezent\Grid\Extension\Core\Type\ColumnType;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -103,6 +104,6 @@ class SortableTypeExtension extends BaseElementTypeExtension
      */
     public function getExtendedType()
     {
-        return 'column';
+        return ColumnType::class;
     }
 }

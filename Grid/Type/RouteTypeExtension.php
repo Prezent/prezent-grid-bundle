@@ -4,6 +4,7 @@ namespace Prezent\GridBundle\Grid\Type;
 
 use Prezent\Grid\BaseElementTypeExtension;
 use Prezent\Grid\ElementView;
+use Prezent\Grid\Extension\Core\Type\ElementType;
 use Prezent\Grid\VariableResolver;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -74,6 +75,6 @@ class RouteTypeExtension extends BaseElementTypeExtension
      */
     public function getExtendedType()
     {
-        return 'element';
+        return ElementType::class;
     }
 }

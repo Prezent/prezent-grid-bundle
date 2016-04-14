@@ -7,6 +7,7 @@ features such as:
 * Sortable columns
 * Support for Symfony routes
 * Translations
+* Lazy-loading of grids and elements
 
 For a complete guide to using the grid library see the [prezent/grid documentation](https://github.com/Prezent/prezent-grid/blob/master/doc/index.md)
 
