@@ -47,8 +47,8 @@ class GridCompilerPass implements CompilerPassInterface
 
         $container
             ->findDefinition('prezent_grid.extension.bundle')
-            ->replaceArgument(0, $types)
-            ->replaceArgument(1, $extensions);
+            ->replaceArgument(1, $types)
+            ->replaceArgument(2, $extensions);
     }
 
     /**
@@ -68,8 +68,8 @@ class GridCompilerPass implements CompilerPassInterface
 
         $container
             ->findDefinition('prezent_grid.extension.bundle')
-            ->replaceArgument(2, $types)
-            ->replaceArgument(3, $extensions);
+            ->replaceArgument(3, $types)
+            ->replaceArgument(4, $extensions);
     }
 
     /**
