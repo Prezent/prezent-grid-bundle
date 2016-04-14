@@ -38,7 +38,7 @@
             <tag name="prezent_grid.grid_extension" />
         </service>
 
-        <service id="prezent\DefaultGridTypeFactory_grid.extension.bundle" class="%prezent_grid.extension.bundle.class%" public="false">
+        <service id="prezent_grid.extension.bundle" class="%prezent_grid.extension.bundle.class%" public="false">
             <argument type="service" id="service_container" />
             <argument />
             <argument />
