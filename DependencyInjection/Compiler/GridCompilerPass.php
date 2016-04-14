@@ -166,8 +166,8 @@ class GridCompilerPass implements CompilerPassInterface
                 );
             }
 
-            if (isset($tag[0]['extended_type'])) {
-                $extendedType = $tag[0]['extended_type'];
+            if (isset($tags[0]['extended_type'])) {
+                $extendedType = $tags[0]['extended_type'];
             } else {
                 throw new \InvalidArgumentException(
                     sprintf('Tagged grid type extension must have the extended type configured using the extended_type, none was configured for the "%s" service.', $id)

@@ -13,6 +13,7 @@
         <parameter key="prezent_grid.element_type_extension.translatable_label.class">Prezent\GridBundle\Grid\Type\TranslatableLabelTypeExtension</parameter>
         <parameter key="prezent_grid.element_type_factory.class">Prezent\Grid\DefaultElementTypeFactory</parameter>
         <parameter key="prezent_grid.grid_factory.class">Prezent\Grid\DefaultGridFactory</parameter>
+        <parameter key="prezent_grid.grid_type_extension.class">Prezent\GridBundle\Grid\Type\GridTypeExtension</parameter>
         <parameter key="prezent_grid.grid_type_factory.class">Prezent\Grid\DefaultGridTypeFactory</parameter>
         <parameter key="prezent_grid.twig_renderer.class">Prezent\Grid\Twig\GridRenderer</parameter>
         <parameter key="prezent_grid.twig_renderer.themes" type="collection">
