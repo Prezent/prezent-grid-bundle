@@ -43,7 +43,7 @@ class GridCompilerPass implements CompilerPassInterface
         }
 
         $types = $this->findTypes($container, 'prezent_grid.grid');
-        $extensions = $this->findTypeExtensions($container, 'prezent_grid.grid_extension');
+        $extensions = $this->findTypeExtensions($container, 'prezent_grid.grid_type_extension');
 
         $container
             ->findDefinition('prezent_grid.extension.bundle')
