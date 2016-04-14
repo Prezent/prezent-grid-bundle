@@ -28,7 +28,7 @@ class GridTypeExtension extends BaseGridTypeExtension
     /**
      * {@inheritDoc}
      */
-    public function buildView(ElementView $view, array $options)
+    public function buildView(GridView $view, array $options)
     {
         $view->vars['label_translation_domain'] = $options['label_translation_domain'];
     }
