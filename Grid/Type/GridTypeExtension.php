@@ -3,7 +3,7 @@
 namespace Prezent\GridBundle\Grid\Type;
 
 use Prezent\Grid\BaseGridTypeExtension;
-use Prezent\Grid\ElementView;
+use Prezent\Grid\GridView;
 use Prezent\Grid\Extension\Core\GridType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
