@@ -45,21 +45,26 @@
             <tag name="prezent_grid.grid_extension" />
         </service>
 
+        <!-- Grid type extensions -->
+        <service id="prezent_grid.grid_type_extension" class="%prezent_grid.grid_type_extension.class%">
+            <tag name="prezent_grid.grid_type_extension" extended-type="Prezent\Grid\Extension\Core\GridType" />
+        </service>
+
         <!-- Element type extensions -->
         <service id="prezent_grid.element_type_extension.route" class="%prezent_grid.element_type_extension.route.class%">
             <argument type="service" id="prezent_grid.variable_resolver" />
-            <tag name="prezent_grid.element_type_extension" />
+            <tag name="prezent_grid.element_type_extension" extended-type="Prezent\Grid\Extension\Core\Type\ElementType" />
         </service>
 
         <service id="prezent_grid.element_type_extension.sortable" class="%prezent_grid.element_type_extension.sortable.class%">
             <argument type="service" id="request_stack" />
             <argument>%prezent_grid.sort_field_parameter%</argument>
             <argument>%prezent_grid.sort_order_parameter%</argument>
-            <tag name="prezent_grid.element_type_extension" />
+            <tag name="prezent_grid.element_type_extension" extended-type="Prezent\Grid\Extension\Core\Type\ColumnType" />
         </service>
 
         <service id="prezent_grid.element_type_extension.translatable_label" class="%prezent_grid.element_type_extension.translatable_label.class%">
-            <tag name="prezent_grid.element_type_extension" />
+            <tag name="prezent_grid.element_type_extension" extended-type="Prezent\Grid\Extension\Core\Type\ElementType" />
         </service>
 
         <!-- Factories -->
