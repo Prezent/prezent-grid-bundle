@@ -1,15 +1,16 @@
 {% extends 'grid.html.twig' %}
 
 {% block grid_header_label %}
+    {% set label = (label|trans({}, label_translation_domain)) %}
     {% if sort_route is defined and sort_route_parameters is defined %}
         <a
             href="{{ path(sort_route, sort_route_parameters) }}"
             class="prezent-grid-sortable"{% if sort_active %} data-sort-dir="{{ sort_active|lower }}"{% endif %}
         >
-            {{ label|trans({}, label_translation_domain) }}
+            {{ parent() }}
         </a>
     {% else %}
-        {{ label|trans({}, label_translation_domain) }}
+        {{ parent() }}
     {% endif %}
 {% endblock %}
 
@@ -27,8 +28,8 @@
 
 {%- block grid_action -%}
     {% if route is defined %}
-        <a href="{{ path(route, route_parameters) }}" {{ block('grid_attributes') }}>{{ label|trans({}, label_translation_domain) }}</a>
-    {% else %}
-        <a href="{{ url }}" {{ block('grid_attributes') }}>{{ label|trans({}, label_translation_domain) }}</a>
+        {% set url = path(route, route_parameters) %}
     {% endif %}
+    {% set label = (label|trans({}, label_translation_domain)) %}
+    {{ parent() }}
 {%- endblock -%}
