@@ -27,7 +27,7 @@
     </parameters>
     <services>
 
-	<service id="prezent_grid.accessor" class="Symfony\Component\PropertyAccess\PropertyAccessorInterface">
+        <service id="prezent_grid.accessor" class="Symfony\Component\PropertyAccess\PropertyAccessorInterface">
             <factory class="Symfony\Component\PropertyAccess\PropertyAccess" method="createPropertyAccessor" />
         </service>
 
@@ -48,24 +48,24 @@
         </service>
 
         <!-- Grid type extensions -->
-        <service id="prezent_grid.grid_type_extension" class="%prezent_grid.grid_type_extension.class%">
+        <service id="prezent_grid.grid_type_extension" class="%prezent_grid.grid_type_extension.class%" public="true">
             <tag name="prezent_grid.grid_type_extension" extended-type="Prezent\Grid\Extension\Core\GridType" />
         </service>
 
         <!-- Element type extensions -->
-        <service id="prezent_grid.element_type_extension.route" class="%prezent_grid.element_type_extension.route.class%">
+        <service id="prezent_grid.element_type_extension.route" class="%prezent_grid.element_type_extension.route.class%" public="true">
             <argument type="service" id="prezent_grid.variable_resolver" />
             <tag name="prezent_grid.element_type_extension" extended-type="Prezent\Grid\Extension\Core\Type\ElementType" />
         </service>
 
-        <service id="prezent_grid.element_type_extension.sortable" class="%prezent_grid.element_type_extension.sortable.class%">
+        <service id="prezent_grid.element_type_extension.sortable" class="%prezent_grid.element_type_extension.sortable.class%" public="true">
             <argument type="service" id="request_stack" />
             <argument>%prezent_grid.sort_field_parameter%</argument>
             <argument>%prezent_grid.sort_order_parameter%</argument>
             <tag name="prezent_grid.element_type_extension" extended-type="Prezent\Grid\Extension\Core\Type\ColumnType" />
         </service>
 
-        <service id="prezent_grid.element_type_extension.translatable_label" class="%prezent_grid.element_type_extension.translatable_label.class%">
+        <service id="prezent_grid.element_type_extension.translatable_label" class="%prezent_grid.element_type_extension.translatable_label.class%" public="true">
             <tag name="prezent_grid.element_type_extension" extended-type="Prezent\Grid\Extension\Core\Type\ElementType" />
         </service>
 
@@ -78,12 +78,12 @@
             <argument />
         </service>
 
-        <service id="prezent_grid.grid_factory" class="%prezent_grid.grid_factory.class%">
+        <service id="prezent_grid.grid_factory" class="%prezent_grid.grid_factory.class%" public="true">
             <argument type="service" id="prezent_grid.grid_type_factory" />
             <argument type="service" id="prezent_grid.element_type_factory" />
         </service>
 
-        <service id="grid_factory" alias="prezent_grid.grid_factory" />
+        <service id="grid_factory" alias="prezent_grid.grid_factory" public="true" />
 
         <!-- Rendering -->
         <service id="prezent_grid.twig_renderer" class="%prezent_grid.twig_renderer.class%" public="false">
