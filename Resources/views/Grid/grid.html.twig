@@ -1,7 +1,9 @@
 {% extends 'grid.html.twig' %}
 
 {% block grid_header_label %}
-    {% set label = (label|trans({}, label_translation_domain)) %}
+    {% if label_translation_domain %}
+        {% set label = (label|trans({}, label_translation_domain)) %}
+    {% endif %}
     {% if sort_route is defined and sort_route_parameters is defined %}
         <a
             href="{{ path(sort_route, sort_route_parameters) }}"

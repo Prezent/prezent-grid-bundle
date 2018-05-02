@@ -30,7 +30,9 @@ class TranslatableLabelTypeExtension extends BaseElementTypeExtension
      */
     public function buildView(ElementView $view, array $options)
     {
-        $view->vars['label_translation_domain'] = $options['label_translation_domain'] ?: $view->parent->vars['label_translation_domain'];
+        $view->vars['label_translation_domain'] = $options['label_translation_domain'] !== null
+            ? $options['label_translation_domain']
+            : $view->parent->vars['label_translation_domain'];
     }
 
     /**
