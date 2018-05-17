@@ -29,9 +29,11 @@
 {%- endblock -%}
 
 {%- block grid_action -%}
-    {% if route is defined %}
-        {% set url = path(route, route_parameters) %}
+    {% if visible %}
+        {% if route is defined %}
+            {% set url = path(route, route_parameters) %}
+        {% endif %}
+        {% set label = (label|trans({}, label_translation_domain)) %}
+        {{ parent() }}
     {% endif %}
-    {% set label = (label|trans({}, label_translation_domain)) %}
-    {{ parent() }}
 {%- endblock -%}
