@@ -2,17 +2,18 @@
 
 namespace Prezent\GridBundle\Tests\Grid\Type;
 
+use PHPUnit\Framework\TestCase;
 use Prezent\Grid\ElementView;
 use Prezent\Grid\VariableResolver;
 use Prezent\GridBundle\Grid\Type\RouteTypeExtension;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class RouteTypeExtensionTest extends \PHPUnit_Framework_TestCase
+class RouteTypeExtensionTest extends TestCase
 {
     public function testSkipOnUrl()
     {
-        $resolver = $this->getMock(VariableResolver::class);
+        $resolver = $this->getMockBuilder(VariableResolver::class)->getMock();
         $extension = new RouteTypeExtension($resolver);
 
         $optionsResolver = new OptionsResolver();
@@ -29,7 +30,7 @@ class RouteTypeExtensionTest extends \PHPUnit_Framework_TestCase
 
     public function testResolver()
     {
-        $resolver = $this->getMock(VariableResolver::class, ['resolve']);
+        $resolver = $this->getMockBuilder(VariableResolver::class, ['resolve'])->getMock();
         $resolver->method('resolve')->willReturn('1');
 
         $extension = new RouteTypeExtension($resolver);
