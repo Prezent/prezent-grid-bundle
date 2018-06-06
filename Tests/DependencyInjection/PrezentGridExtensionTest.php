@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Prezent\GridBundle\Tests\DependencyInjection;
 
 use PHPUnit\Framework\TestCase;

@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Prezent\GridBundle\Tests\Fixtures\AppBundle\Grid\Type;
 
 use Prezent\Grid\BaseGridType;
