@@ -1,0 +1,7 @@
+index:
+    path: /
+    defaults: {_controller: 'AppBundle:Test:index'}
+
+view:
+    path: /view/{id}
+    defaults: {_controller: 'AppBundle:Test:view'}

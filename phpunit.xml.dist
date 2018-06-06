@@ -9,9 +9,12 @@
          bootstrap="Tests/bootstrap.php"
 >
     <php>
+        <env name="KERNEL_CLASS" value="Prezent\GridBundle\Tests\Fixtures\AppKernel" />
+        <env name="SYMFONY_DEPRECATIONS_HELPER" value="weak_vendors" />
         <ini name="intl.default_locale" value="en"/>
         <ini name="intl.error_level" value="0"/>
         <ini name="memory_limit" value="-1"/>
+        <server name="KERNEL_DIR" value="Tests/Fixtures/" />
     </php>
 
     <testsuites>

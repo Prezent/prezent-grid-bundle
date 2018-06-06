@@ -17,7 +17,7 @@
         <parameter key="prezent_grid.grid_type_factory.class">Prezent\Grid\DefaultGridTypeFactory</parameter>
         <parameter key="prezent_grid.twig_renderer.class">Prezent\Grid\Twig\GridRenderer</parameter>
         <parameter key="prezent_grid.twig_renderer.themes" type="collection">
-            <parameter>PrezentGridBundle:Grid:grid.html.twig</parameter>
+            <parameter>@PrezentGrid/Grid/grid.html.twig</parameter>
         </parameter>
         <parameter key="prezent_grid.twig_extension.class">Prezent\Grid\Twig\GridExtension</parameter>
         <parameter key="prezent_grid.variable_resolver.callback.class">Prezent\Grid\VariableResolver\CallbackResolver</parameter>

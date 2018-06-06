@@ -1,0 +1,20 @@
+framework:
+    default_locale: en
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+    secret: test
+    templating:
+        engines: [twig]
+    test: true
+    translator:
+        fallback: en
+
+twig:
+    debug: '%kernel.debug%'
+    strict_variables: '%kernel.debug%'
+
+services:
+    twig.extension.text:
+        class: Twig_Extensions_Extension_Text
+        tags:
+            - { name: twig.extension }
