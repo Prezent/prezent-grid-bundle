@@ -8,7 +8,9 @@
         "php": "^5.5|^7.0",
         "ext-intl": "*",
         "prezent/grid": ">=0.8 <0.10",
+        "symfony/dependency-injection": "^2.6|^3.0|^4.0",
         "symfony/framework-bundle": "^2.6|^3.0|^4.0",
+        "symfony/options-resolver": "^2.6|^3.0|^4.0",
         "symfony/translation": "^2.3|^3.0|^4.0",
         "symfony/twig-bundle": "^2.3|^3.0|^4.0"
     },
