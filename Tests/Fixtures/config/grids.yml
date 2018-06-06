@@ -1,0 +1,5 @@
+services:
+    Prezent\GridBundle\Tests\Fixtures\AppBundle\Grid\Type\TestGridType:
+        class: Prezent\GridBundle\Tests\Fixtures\AppBundle\Grid\Type\TestGridType
+        tags:
+            - { name: prezent_grid.grid }

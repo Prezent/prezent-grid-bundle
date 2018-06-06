@@ -2,6 +2,7 @@
 
 namespace Prezent\GridBundle\Tests\Fixtures;
 
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpKernel\Kernel;
 
@@ -30,6 +31,10 @@ class AppKernel extends Kernel
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
         $loader->load(__DIR__.'/config/config.yml');
+
+        if (!method_exists(ContainerBuilder::class, 'registerForAutoconfiguration')) {
+            $loader->load(__DIR__.'/config/grids.yml');
+        }
     }
 
     public function getRootDir()
