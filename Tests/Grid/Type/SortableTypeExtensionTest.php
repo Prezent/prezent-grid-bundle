@@ -78,6 +78,7 @@ class SortableTypeExtensionTest extends TestCase
             ]),
             array_merge($this->defaultOptions, ['sortable' => true]),
             [
+                'sort_order' => 'ASC',
                 'sort_active' => false,
                 'sort_route' => 'my_route',
                 'sort_route_parameters' => [
@@ -97,6 +98,7 @@ class SortableTypeExtensionTest extends TestCase
             ]),
             array_merge($this->defaultOptions, ['sortable' => true]),
             [
+                'sort_order' => 'DESC',
                 'sort_active' => true,
                 'sort_route' => 'my_route',
                 'sort_route_parameters' => [
@@ -113,6 +115,7 @@ class SortableTypeExtensionTest extends TestCase
             ]),
             array_merge($this->defaultOptions, ['sortable' => true]),
             [
+                'sort_order' => 'ASC',
                 'sort_active' => false,
                 'sort_route' => 'my_route',
                 'sort_route_parameters' => [
@@ -138,6 +141,7 @@ class SortableTypeExtensionTest extends TestCase
                 'sort_order_parameter'  => 'order',
             ],
             [
+                'sort_order' => 'ASC',
                 'sort_active' => false,
                 'sort_route' => 'custom_route',
                 'sort_route_parameters' => [

@@ -6,9 +6,7 @@ use Prezent\Grid\BaseElementTypeExtension;
 use Prezent\Grid\ElementView;
 use Prezent\Grid\Extension\Core\Type\ColumnType;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * Sortable columns
@@ -82,21 +80,23 @@ class SortableTypeExtension extends BaseElementTypeExtension
         $active = false;
         $order = 'ASC';
 
-        $field = $options['sort_field'] ?: $view->name;
+        $sortField = $options['sort_field'] ?: $view->name;
         $routeParams = $options['sort_route_parameters'] ?: $request->attributes->get('_route_params', []);
         $routeParams = array_merge($routeParams, $request->query->all());
 
-        if ($field === $request->get($options['sort_field_parameter'])) {
-            $active = $request->get($options['sort_order_parameter']);
-            $order = 'ASC' === $active ? 'DESC' : 'ASC';
+        if ($sortField === $request->get($options['sort_field_parameter'])) {
+            $active = true;
+            $currentSort = $request->get($options['sort_order_parameter']);
+            $order = 'ASC' === $currentSort ? 'DESC' : 'ASC';
         }
 
-        $routeParams[$options['sort_field_parameter']] = $field;
+        $routeParams[$options['sort_field_parameter']] = $sortField;
         $routeParams[$options['sort_order_parameter']] = $order;
 
         $view->vars['sort_route'] = $options['sort_route'] ?: $request->attributes->get('_route');
         $view->vars['sort_route_parameters'] = $routeParams;
-        $view->vars['sort_active'] = $active !== false;
+        $view->vars['sort_active'] = $active;
+        $view->vars['sort_order'] = $order;
     }
 
     /**

@@ -7,7 +7,7 @@
     {% if sort_route is defined and sort_route_parameters is defined %}
         <a
             href="{{ path(sort_route, sort_route_parameters) }}"
-            class="prezent-grid-sortable"{% if sort_active %} data-sort-dir="{{ sort_active|lower }}"{% endif %}
+            class="prezent-grid-sortable"{% if sort_active %} data-sort-dir="{{ sort_order|lower }}"{% endif %}
         >
             {{ parent() }}
         </a>
