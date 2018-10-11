@@ -11,6 +11,7 @@
         <parameter key="prezent_grid.element_type_extension.route.class">Prezent\GridBundle\Grid\Type\RouteTypeExtension</parameter>
         <parameter key="prezent_grid.element_type_extension.sortable.class">Prezent\GridBundle\Grid\Type\SortableTypeExtension</parameter>
         <parameter key="prezent_grid.element_type_extension.translatable_label.class">Prezent\GridBundle\Grid\Type\TranslatableLabelTypeExtension</parameter>
+        <parameter key="prezent_grid.element_type_extension.translatable_value.class">Prezent\GridBundle\Grid\Type\TranslatableValueTypeExtension</parameter>
         <parameter key="prezent_grid.element_type_factory.class">Prezent\Grid\DefaultElementTypeFactory</parameter>
         <parameter key="prezent_grid.grid_factory.class">Prezent\Grid\DefaultGridFactory</parameter>
         <parameter key="prezent_grid.grid_type_extension.class">Prezent\GridBundle\Grid\Type\GridTypeExtension</parameter>
@@ -66,6 +67,10 @@
         </service>
 
         <service id="prezent_grid.element_type_extension.translatable_label" class="%prezent_grid.element_type_extension.translatable_label.class%" public="true">
+            <tag name="prezent_grid.element_type_extension" extended-type="Prezent\Grid\Extension\Core\Type\ElementType" />
+        </service>
+
+        <service id="prezent_grid.element_type_extension.translatable_value" class="%prezent_grid.element_type_extension.translatable_value.class%" public="true">
             <tag name="prezent_grid.element_type_extension" extended-type="Prezent\Grid\Extension\Core\Type\ElementType" />
         </service>
 

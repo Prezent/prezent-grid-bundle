@@ -17,6 +17,9 @@
 {% endblock %}
 
 {%- block grid_widget -%}
+    {% if value_translation_domain %}
+        {% set value = (value|trans({}, value_translation_domain)) %}
+    {% endif %}
     {% if route is defined %}
         <a href="{{ path(route, route_parameters) }}">{{ parent() }}</a>
     {% else %}
