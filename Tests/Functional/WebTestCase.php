@@ -17,7 +17,7 @@ abstract class WebTestCase extends BaseWebTestCase
             throw new \InvalidArgumentException('The option "test_case" must be set.');
         }
 
-        return new $class($options['test_case'], 'test', true);
+        return new $class($options['test_case'], 'test', $_ENV['APP_DEBUG']);
     }
 
     protected static function createClient(array $options = [], array $server = [])

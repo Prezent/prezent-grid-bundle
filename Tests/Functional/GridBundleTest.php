@@ -30,5 +30,15 @@ class GridBundleTest extends WebTestCase
 
         // Routing works
         $this->assertCount(2, $crawler->filter('tbody td a[href*="view"]'));
+
+        //Test sortable rendering and interaction
+        $crawler = $client->request('GET', '/?sort_by=name');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $activeColumns = $crawler->filter('thead th a[data-sort-dir="asc"]');
+        $this->assertCount(1, $activeColumns);
+
+        $crawler = $client->click($activeColumns->first()->link());
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertCount(1, $crawler->filter('thead th a[data-sort-dir="desc"]'));
     }
 }
