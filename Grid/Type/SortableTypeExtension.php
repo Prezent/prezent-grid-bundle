@@ -96,7 +96,10 @@ class SortableTypeExtension extends BaseElementTypeExtension
         $view->vars['sort_route'] = $options['sort_route'] ?: $request->attributes->get('_route');
         $view->vars['sort_route_parameters'] = $routeParams;
         $view->vars['sort_active'] = $active;
-        $view->vars['sort_order'] = $order;
+
+        if ($active) {
+            $view->vars['sort_order'] = $currentOrder;
+        }
     }
 
     /**
