@@ -86,7 +86,7 @@ class SortableTypeExtension extends BaseElementTypeExtension
 
         if ($sortField === $request->get($options['sort_field_parameter'])) {
             $active = true;
-            $currentOrder = $request->get($options['sort_order_parameter']);
+            $currentOrder = $request->get($options['sort_order_parameter'], 'ASC');
             $order = 'ASC' === $currentOrder ? 'DESC' : 'ASC';
         }
 
