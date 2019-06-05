@@ -16,7 +16,14 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder('prezent_grid');
-        $treeBuilder->getRootNode()
+
+        if (method_exists($treeBuilder, 'getRootNode')) {
+            $rootNode = $treeBuilder->getRootNode();
+        } else {
+            $rootNode = $treeBuilder->root('prezent_grid');
+        }
+
+        $rootNode
             ->children()
                 ->arrayNode('themes')
                     ->prototype('scalar')->end()
