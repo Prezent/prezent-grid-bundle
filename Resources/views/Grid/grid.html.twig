@@ -21,9 +21,9 @@
         {% set value = (value|trans({}, value_translation_domain)) %}
     {% endif %}
     {% if route is defined %}
-        <a href="{{ path(route, route_parameters) }}">{{ parent() }}</a>
+        <a href="{{ path(route, route_parameters) }}">{{ parent()|raw }}</a>
     {% else %}
-        {{ parent() }}
+        {{ parent()|raw }}
     {% endif %}
 {%- endblock -%}
 
