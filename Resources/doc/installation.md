@@ -7,7 +7,19 @@ This bundle can be installed using Composer. Tell composer to install the extens
 $ php composer.phar require prezent/grid-bundle
 ```
 
-Then, activate the bundle in your kernel:
+Then, activate the bundle (Symfony 4+):
+
+```php
+<?php
+// config/bundles.php
+
+return [
+    // ...
+    Prezent\GridBundle\PrezentGridBundle::class => ['all' => true],
+];
+
+```
+or (Symfony 3):
 
 ```php
 <?php
@@ -24,21 +36,18 @@ public function registerBundles()
 
 ## Configuration
 ### Twig Extensions
-Since the ```prezent/grid``` library depends on the Twig Extensions, specifically the TextExtesion, you have to load them in your project. 
-
-You can do this either manually, e.g. in you appliation config, like this:
+Since the ```prezent/grid``` library depends on the Twig string-extra extension, you have to load it in your project. 
 
 ```yml
-// app/config/config.yml
+// config/services.yml
 ...
 services:
-   twig.extension.text:
-       class: Twig_Extensions_Extension_Text
+   Twig\Extra\String\StringExtension:
        tags:
            - { name: twig.extension }
 ```
 
-or you can use the [dms/twig-extension-bundle](https://github.com/rdohms/dms-twig-extension-bundle). See the documentation for that bundle on how to install it.
+or you can use the [twig/extra-bundle](https://github.com/twigphp/twig-extra-bundle) on Symfony 4+. See the documentation for that bundle on how to install it.
 
 ### Themes
 You can set the themes which will be used by the renderer:
@@ -46,6 +55,6 @@ You can set the themes which will be used by the renderer:
 ```yml
 prezent_grid:
     themes: 
-        - PrezentGridBundle:Grid:grid.html.twig
-        - MyBundle:Grid:custom.html.twig
+        - @PrezentGrid/grid/grid.html.twig
+        - @MyBundle/grid/custom.html.twig
 ```

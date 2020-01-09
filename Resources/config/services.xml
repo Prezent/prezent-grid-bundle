@@ -16,9 +16,8 @@
         <parameter key="prezent_grid.grid_factory.class">Prezent\Grid\DefaultGridFactory</parameter>
         <parameter key="prezent_grid.grid_type_extension.class">Prezent\GridBundle\Grid\Type\GridTypeExtension</parameter>
         <parameter key="prezent_grid.grid_type_factory.class">Prezent\Grid\DefaultGridTypeFactory</parameter>
-        <parameter key="prezent_grid.twig_renderer.class">Prezent\Grid\Twig\GridRenderer</parameter>
         <parameter key="prezent_grid.twig_renderer.themes" type="collection">
-            <parameter>@PrezentGrid/Grid/grid.html.twig</parameter>
+            <parameter>@PrezentGrid/grid/grid.html.twig</parameter>
         </parameter>
         <parameter key="prezent_grid.twig_extension.class">Prezent\Grid\Twig\GridExtension</parameter>
         <parameter key="prezent_grid.variable_resolver.callback.class">Prezent\Grid\VariableResolver\CallbackResolver</parameter>
@@ -89,11 +88,16 @@
         </service>
 
         <service id="grid_factory" alias="prezent_grid.grid_factory" public="true" />
+        <service id="%prezent_grid.grid_factory.class%" alias="prezent_grid.grid_factory" public="true" />
 
         <!-- Rendering -->
-        <service id="prezent_grid.twig_renderer" class="%prezent_grid.twig_renderer.class%" public="false">
+        <service id="Prezent\Grid\Twig\GridRenderer" public="true">
             <argument>%prezent_grid.twig_renderer.themes%</argument>
+            <argument type="service" id="twig" />
+            <tag name="twig.runtime" />
         </service>
+
+        <service id="prezent_grid.twig_renderer" alias="Prezent\Grid\Twig\GridRenderer" public="true" />
 
         <service id="prezent_grid.twig_extension" class="%prezent_grid.twig_extension.class%" public="false">
             <argument type="service" id="prezent_grid.twig_renderer" />

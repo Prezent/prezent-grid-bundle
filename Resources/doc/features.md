@@ -28,7 +28,7 @@ Example:
 ```php
 
 $builder->addAction('edit', [
-    'route' => 'your_bundle_edit',
+    'route' => 'your_edit_route',
     'route_parameters' => [
         'id' => '{id}',
         'slug' => function ($item) {

@@ -2,14 +2,15 @@ Service configuration
 =====================
 
 There are multiple tags that you can use in your service configuration to add your own
-services to the grid system.
+services to the grid system. If you have autoconfiguration set up in Symfony then these tags
+should all be added automatically.
 
 ## `prezent_grid.grid`
 
 Tag your grid classes to add them to the grid factory. Example:
 
 ```xml
-<service id="my_bundle.grid.users" class="My\Bundle\Grid\UsersGridType">
+<service id="App\Grid\UsersGridType" public="true">
     <tag name="prezent_grid.grid" />
 </service>
 ```
@@ -19,16 +20,17 @@ You can access your grid by name from your controller:
 ```php
 <?php
 
-use My\Bundle\Grid\UserGridType;
+use App\Grid\UserGridType;
+use Prezent\Grid\GridFactory;
 
-class UserController extends Controller
+class UserController implements Controller
 {
     /**
      * @Template
      */
-    public function indexAction(Request $request)
+    public function index(GridFactory $factory, Request $request)
     {
-        $grid = $this->get('grid_factory')->createGrid(UserGridType::class);
+        $grid = $factory->createGrid(UserGridType::class);
 
         return [
             'grid' => $grid->createView(),
@@ -42,7 +44,7 @@ class UserController extends Controller
 Tag your custom grid extensions to add them to the element factory:
 
 ```xml
-<service id="my_bundle.grid_extension" class="My\Bundle\Grid\Extension" public="false">
+<service id="App\Grid\Extension" public="true">
     <tag name="prezent_grid.grid_extension" extended_type="My\Bundle\Grid\UserGridType" />
 </service>
 ```
@@ -52,11 +54,11 @@ Tag your custom grid extensions to add them to the element factory:
 Add your own types and type extensions to the built-in grid extension:
 
 ```xml
-<service id="my_bundle.my_grid_type" class="My\Bundle\Grid\MyType">
+<service id="App\Grid\MyType" public="true">
     <tag name="prezent_grid.element_type" />
 </service>
 
-<service id="my_bundle.my_grid_type_extension" class="My\Bundle\Grid\MyTypeExtension">
+<service id="My\Bundle\Grid\MyTypeExtension" public="true">
     <tag name="prezent_grid.element_type_extension" extended_type="My\Bundle\Grid\MyType" />
 </service>
 ```
@@ -66,7 +68,7 @@ Add your own types and type extensions to the built-in grid extension:
 Add your own variable resolver (used to parse URLs on a row-by-row bases) to the built-in chain resolver:
 
 ```xml
-<service id="my_bundle.variable_resolver" class="My\Bundle\Grid\VariableResolver" public="false">
+<service id="App\Grid\VariableResolver">
     <tag name="prezent_grid.variable_resolver" />
 </service>
 ```
