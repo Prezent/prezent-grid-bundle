@@ -20,7 +20,7 @@ matrix:
 
 before_install:
   - composer global require symfony/flex --no-scripts
-  - if [ "$SYMFONY_LTS" != "" ]; then composer config extra.symfony.require $SYMFONY_REQUIRE fi
+  - if [ "$SYMFONY_REQUIRE" != "" ]; then composer config extra.symfony.require $SYMFONY_REQUIRE; fi
 
 install:
   - composer update $COMPOSER_FLAGS --prefer-dist
