@@ -20,7 +20,3 @@ services:
     Prezent\GridBundle\Tests\Fixtures\AppBundle\Controller\TestController:
         tags:
             - { name: contoller.service_arguments }
-
-    Twig\Extra\String\StringExtension:
-        tags:
-            - { name: twig.extension }
