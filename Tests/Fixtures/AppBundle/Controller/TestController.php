@@ -3,16 +3,17 @@
 namespace Prezent\GridBundle\Tests\Fixtures\AppBundle\Controller;
 
 use Prezent\GridBundle\Tests\Fixtures\AppBundle\Grid\Type\TestGridType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Prezent\Grid\GridFactory;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @author Sander Marechal
  */
-class TestController extends Controller
+class TestController extends AbstractController
 {
-    public function indexAction()
+    public function index(GridFactory $factory)
     {
-        $grid = $this->get('grid_factory')->createGrid(TestGridType::class);
+        $grid = $factory->createGrid(TestGridType::class);
 
         return $this->render('@App/index.html.twig', [
             'grid' => $grid->createView(),
@@ -23,7 +24,7 @@ class TestController extends Controller
         ]);
     }
 
-    public function viewAction($id)
+    public function view($id)
     {
         return $this->render('@App/view.html.twig', [
             'id' => $id,

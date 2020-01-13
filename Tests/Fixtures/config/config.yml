@@ -1,10 +1,8 @@
 framework:
     default_locale: en
     router:
-        resource: "%kernel.root_dir%/config/routing.yml"
+        resource: "%kernel.project_dir%/Tests/Fixtures/config/routing.yml"
     secret: test
-    templating:
-        engines: [twig]
     test: true
     translator:
         fallback: en
@@ -14,6 +12,15 @@ twig:
     strict_variables: '%kernel.debug%'
 
 services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false 
+
+    Prezent\GridBundle\Tests\Fixtures\AppBundle\Controller\TestController:
+        tags:
+            - { name: contoller.service_arguments }
+
     Twig\Extra\String\StringExtension:
         tags:
             - { name: twig.extension }

@@ -88,7 +88,7 @@
         </service>
 
         <service id="grid_factory" alias="prezent_grid.grid_factory" public="true" />
-        <service id="%prezent_grid.grid_factory.class%" alias="prezent_grid.grid_factory" public="true" />
+        <service id="Prezent\Grid\GridFactory" alias="prezent_grid.grid_factory" public="true" />
 
         <!-- Rendering -->
         <service id="Prezent\Grid\Twig\GridRenderer" public="true">

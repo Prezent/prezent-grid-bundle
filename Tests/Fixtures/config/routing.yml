@@ -1,7 +1,7 @@
 index:
     path: /
-    defaults: {_controller: 'AppBundle:Test:index'}
+    defaults: {_controller: 'Prezent\GridBundle\Tests\Fixtures\AppBundle\Controller\TestController::index'}
 
 view:
     path: /view/{id}
-    defaults: {_controller: 'AppBundle:Test:view'}
+    defaults: {_controller: 'Prezent\GridBundle\Tests\Fixtures\AppBundle\Controller\TestController::view'}
