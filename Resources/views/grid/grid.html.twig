@@ -21,14 +21,14 @@
         {% set value = (value|trans({}, value_translation_domain)) %}
     {% endif %}
     {% if route is defined %}
-        <a href="{{ path(route, route_parameters) }}">{{ parent()|raw }}</a>
-    {% else %}
-        {{ parent()|raw }}
+        {% set url = path(route, route_parameters) %}
     {% endif %}
+    {{ parent()|raw }}
 {%- endblock -%}
 
 {%- block grid_boolean_widget -%}
-    {{ value|trans({}, 'PrezentGrid') }}
+    {% set value = (value|trans({}, 'PrezentGrid')) %}
+    {{ block('grid_widget')|raw }}
 {%- endblock -%}
 
 {%- block grid_action -%}
