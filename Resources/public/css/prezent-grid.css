@@ -14,11 +14,11 @@
     -moz-transform: scale(.9999);
 }
 
-.prezent-grid-sortable[data-sort-dir="asc"]::after {
+.prezent-grid-sortable[data-sort-dir="desc"]::after {
     top: 6px;
     border-top-color: #000;
 }
 
-.prezent-grid-sortable[data-sort-dir="desc"]::after {
+.prezent-grid-sortable[data-sort-dir="asc"]::after {
     border-bottom-color: #000;
 }
