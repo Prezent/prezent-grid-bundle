@@ -16,7 +16,8 @@ You can generate URLs from routes for columns and actions. Two new options have 
 
 ### `route`
 
-The route name to generate an URL from
+The route name to generate an URL from. When the route contains values in braces, they are interpreted as property paths into your row
+and will be replaced. You can also suply a callback which will recieve the row as it's only parameter.
 
 ### `route_parameters`
 

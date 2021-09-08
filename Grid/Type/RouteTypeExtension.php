@@ -38,7 +38,7 @@ class RouteTypeExtension extends BaseElementTypeExtension
     {
         $resolver
             ->setDefined(['url', 'route', 'route_parameters'])
-            ->setAllowedTypes('route', 'string')
+            ->setAllowedTypes('route', ['string', 'Closure'])
             ->setAllowedTypes('route_parameters', 'array')
         ;
     }
@@ -64,6 +64,8 @@ class RouteTypeExtension extends BaseElementTypeExtension
         if (!isset($view->vars['route_parameters'])) {
             return;
         }
+
+        $view->vars['route'] = $this->resolver->resolve($view->vars['route'], $item);
 
         foreach ($view->vars['route_parameters'] as &$value) {
             $value = $this->resolver->resolve($value, $item);
