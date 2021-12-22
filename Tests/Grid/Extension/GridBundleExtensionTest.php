@@ -3,6 +3,8 @@
 namespace Prezent\GridBundle\Tests\Grid\Extension;
 
 use PHPUnit\Framework\TestCase;
+use Prezent\Grid\BaseElementType;
+use Prezent\Grid\BaseGridType;
 use Prezent\Grid\ElementTypeExtension;
 use Prezent\Grid\Exception\InvalidArgumentException;
 use Prezent\GridBundle\Grid\Extension\GridBundleExtension;
@@ -17,17 +19,18 @@ class GridBundleExtensionTest extends TestCase
     public function testGridTypes()
     {
         $container = $this->createMock(ContainerInterface::class);
+        $grid = $this->createMock(BaseGridType::class);
 
         $container
             ->method('get')
             ->will($this->returnValueMap([
-                ['exists', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, 'exists'],
+                ['exists', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $grid],
             ]));
 
         $extension = new GridBundleExtension($container, ['Some\\Grid' => 'exists'], [], [], []);
 
         $this->assertTrue($extension->hasGridType('Some\\Grid'));
-        $this->assertEquals('exists', $extension->getGridType('Some\\Grid'));
+        $this->assertEquals($grid, $extension->getGridType('Some\\Grid'));
 
         $this->assertFalse($extension->hasGridType('Other\\Grid'));
 
@@ -76,17 +79,18 @@ class GridBundleExtensionTest extends TestCase
     public function testElementTypes()
     {
         $container = $this->createMock(ContainerInterface::class);
+        $elementType = $this->createMock(BaseElementType::class);
 
         $container
             ->method('get')
             ->will($this->returnValueMap([
-                ['exists', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, 'exists'],
+                ['exists', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $elementType],
             ]));
 
         $extension = new GridBundleExtension($container, [], [], ['Some\\Element' => 'exists'], []);
 
         $this->assertTrue($extension->hasElementType('Some\\Element'));
-        $this->assertEquals('exists', $extension->getElementType('Some\\Element'));
+        $this->assertEquals($elementType, $extension->getElementType('Some\\Element'));
 
         $this->assertFalse($extension->hasElementType('Other\\Element'));
 
