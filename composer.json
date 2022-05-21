@@ -12,7 +12,8 @@
         "symfony/framework-bundle": "^5.0|^6.0",
         "symfony/options-resolver": "^5.0|^6.0",
         "symfony/translation": "^5.0|^6.0",
-        "symfony/twig-bundle": "^5.0|^6.0"
+        "symfony/twig-bundle": "^5.0|^6.0",
+        "psr/container": "^2.0"
     },
     "require-dev": {
         "symfony/browser-kit": "^5.0|^6.0",
