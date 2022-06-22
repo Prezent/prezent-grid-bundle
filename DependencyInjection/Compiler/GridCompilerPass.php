@@ -3,8 +3,9 @@
 namespace Prezent\GridBundle\DependencyInjection\Compiler;
 
 use Prezent\Grid\Twig\GridExtension;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use Symfony\Component\DependencyInjection\Compiler\ServiceLocatorTagPass;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
@@ -20,8 +21,25 @@ class GridCompilerPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        $this->addGrids($container);
-        $this->addTypes($container);
+        $serviceIds = [
+            $this->addGrids($container),
+            $this->addTypes($container),
+        ];
+
+        if ($container->has('prezent_grid.extension.bundle')) {
+            $serviceMap = [];
+
+            \array_walk_recursive($serviceIds, function (string $id) use (&$serviceMap) {
+                $serviceMap[$id] = new Reference($id);
+            });
+
+            $locator = ServiceLocatorTagPass::register($container, $serviceMap);
+
+            $container
+                ->findDefinition('prezent_grid.extension.bundle')
+                ->replaceArgument(0, $locator);
+        }
+
         $this->addGridExtensions($container);
         $this->addVariableResolvers($container);
 
@@ -34,12 +52,12 @@ class GridCompilerPass implements CompilerPassInterface
      * Add all grid types
      *
      * @param ContainerBuilder $container
-     * @return void
+     * @return array
      */
-    private function addGrids(ContainerBuilder $container)
+    private function addGrids(ContainerBuilder $container): array
     {
         if (!$container->has('prezent_grid.extension.bundle')) {
-            return;
+            return [];
         }
 
         $types = $this->findTypes($container, 'prezent_grid.grid');
@@ -49,18 +67,20 @@ class GridCompilerPass implements CompilerPassInterface
             ->findDefinition('prezent_grid.extension.bundle')
             ->replaceArgument(1, $types)
             ->replaceArgument(2, $extensions);
+
+        return [ $types, $extensions ];
     }
 
     /**
      * Add all element types and extensions
      *
      * @param ContainerBuilder $container
-     * @return void
+     * @return array
      */
-    private function addTypes(ContainerBuilder $container)
+    private function addTypes(ContainerBuilder $container): array
     {
         if (!$container->has('prezent_grid.extension.bundle')) {
-            return;
+            return [];
         }
 
         $types = $this->findTypes($container, 'prezent_grid.element_type');
@@ -70,6 +90,8 @@ class GridCompilerPass implements CompilerPassInterface
             ->findDefinition('prezent_grid.extension.bundle')
             ->replaceArgument(3, $types)
             ->replaceArgument(4, $extensions);
+
+        return [ $types, $extensions ];
     }
 
     /**
@@ -133,12 +155,6 @@ class GridCompilerPass implements CompilerPassInterface
         foreach ($container->findTaggedServiceIds($tag) as $id => $tags) {
             $definition = $container->getDefinition($id);
 
-            if (!$definition->isPublic()) {
-                throw new \InvalidArgumentException(
-                    sprintf('The service "%s" must be public as grid types are lazy-loaded.', $id)
-                );
-            }
-
             // Support type access by FQCN
             $types[$definition->getClass()] = $id;
         }
@@ -159,12 +175,6 @@ class GridCompilerPass implements CompilerPassInterface
 
         foreach ($container->findTaggedServiceIds($tag) as $id => $tags) {
             $definition = $container->getDefinition($id);
-
-            if (!$definition->isPublic()) {
-                throw new \InvalidArgumentException(
-                    sprintf('The service "%s" must be public as grid type extensions are lazy-loaded.', $id)
-                );
-            }
 
             if (isset($tags[0]['extended_type'])) {
                 $extendedType = $tags[0]['extended_type'];

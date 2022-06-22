@@ -4,7 +4,7 @@ namespace Prezent\GridBundle\Grid\Extension;
 
 use Prezent\Grid\Exception\InvalidArgumentException;
 use Prezent\Grid\GridExtension;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Psr\Container\ContainerInterface;
 
 /**
  * Lazy-load grid types and element types
