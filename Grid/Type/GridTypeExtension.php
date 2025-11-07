@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Prezent\GridBundle\Grid\Type;
 
 use Prezent\Grid\BaseGridTypeExtension;
@@ -18,7 +20,7 @@ class GridTypeExtension extends BaseGridTypeExtension
     /**
      * {@inheritDoc}
      */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'label_translation_domain' => 'messages',
@@ -28,7 +30,7 @@ class GridTypeExtension extends BaseGridTypeExtension
     /**
      * {@inheritDoc}
      */
-    public function buildView(GridView $view, array $options)
+    public function buildView(GridView $view, array $options): void
     {
         $view->vars['label_translation_domain'] = $options['label_translation_domain'];
     }
@@ -36,7 +38,7 @@ class GridTypeExtension extends BaseGridTypeExtension
     /**
      * {@inheritDoc}
      */
-    public function getExtendedType()
+    public function getExtendedType(): string
     {
         return GridType::class;
     }

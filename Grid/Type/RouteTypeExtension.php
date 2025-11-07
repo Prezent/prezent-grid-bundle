@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Prezent\GridBundle\Grid\Type;
 
 use Prezent\Grid\BaseElementTypeExtension;
@@ -16,25 +18,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class RouteTypeExtension extends BaseElementTypeExtension
 {
-    /**
-     * @var VariableResolver
-     */
-    private $resolver;
-
-    /**
-     * Constructor
-     *
-     * @param VariableResolver $resolver
-     */
-    public function __construct(VariableResolver $resolver)
+    public function __construct(
+        private readonly VariableResolver $resolver
+    )
     {
-        $this->resolver = $resolver;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
             ->setDefined(['url', 'route', 'route_parameters'])
@@ -43,10 +33,7 @@ class RouteTypeExtension extends BaseElementTypeExtension
         ;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function buildView(ElementView $view, array $options)
+    public function buildView(ElementView $view, array $options): void
     {
         if (isset($options['url']) || !isset($options['route'])) {
             return;
@@ -56,10 +43,7 @@ class RouteTypeExtension extends BaseElementTypeExtension
         $view->vars['route_parameters'] = isset($options['route_parameters']) ? $options['route_parameters'] : [];
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function bindView(ElementView $view, $item)
+    public function bindView(ElementView $view, mixed $item): void
     {
         if (!isset($view->vars['route_parameters'])) {
             return;
@@ -72,10 +56,7 @@ class RouteTypeExtension extends BaseElementTypeExtension
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function getExtendedType()
+    public function getExtendedType(): string
     {
         return ElementType::class;
     }

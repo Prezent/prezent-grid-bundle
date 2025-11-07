@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Prezent\GridBundle\Grid\Type;
 
 use Prezent\Grid\BaseElementTypeExtension;
@@ -18,7 +20,7 @@ class TranslatableLabelTypeExtension extends BaseElementTypeExtension
     /**
      * {@inheritDoc}
      */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'label_translation_domain' => null,
@@ -28,7 +30,7 @@ class TranslatableLabelTypeExtension extends BaseElementTypeExtension
     /**
      * {@inheritDoc}
      */
-    public function buildView(ElementView $view, array $options)
+    public function buildView(ElementView $view, array $options): void
     {
         $view->vars['label_translation_domain'] = $options['label_translation_domain'] !== null
             ? $options['label_translation_domain']
@@ -38,7 +40,7 @@ class TranslatableLabelTypeExtension extends BaseElementTypeExtension
     /**
      * {@inheritDoc}
      */
-    public function getExtendedType()
+    public function getExtendedType(): string
     {
         return ElementType::class;
     }

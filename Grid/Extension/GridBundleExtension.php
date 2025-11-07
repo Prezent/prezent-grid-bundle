@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Prezent\GridBundle\Grid\Extension;
 
 use Prezent\Grid\Exception\InvalidArgumentException;
@@ -14,43 +16,21 @@ use Psr\Container\ContainerInterface;
  */
 class GridBundleExtension implements GridExtension
 {
-    /**
-     * @var array
-     */
-    private $gridTypeIds;
+    private array $gridTypeIds;
 
-    /**
-     * @var array
-     */
-    private $gridtypeExtensionIds;
+    private array $gridTypeExtensionIds;
 
-    /**
-     * @var array
-     */
-    private $elementTypeIds;
+    private array $elementTypeIds;
 
-    /**
-     * @var array
-     */
-    private $elementTypeExtensionIds;
+    private array $elementTypeExtensionIds;
 
-    /**
-     * Constructor
-     *
-     * @param ContainerInterface $container
-     * @param array $gridTypeIds
-     * @param array $gridTypeExtensionIds
-     * @param array $elementTypeIds
-     * @param array $elementTypeExtensionIds
-     */
     public function __construct(
-        ContainerInterface $container,
+        private readonly ContainerInterface $container,
         array $gridTypeIds,
         array $gridTypeExtensionIds,
         array $elementTypeIds,
         array $elementTypeExtensionIds
     ) {
-        $this->container = $container;
         $this->gridTypeIds = $gridTypeIds;
         $this->gridTypeExtensionIds = $gridTypeExtensionIds;
         $this->elementTypeIds = $elementTypeIds;
@@ -60,7 +40,7 @@ class GridBundleExtension implements GridExtension
     /**
      * {@inheritDoc}
      */
-    public function hasGridType($name)
+    public function hasGridType(string $name): bool
     {
         return isset($this->gridTypeIds[$name]);
     }
@@ -68,7 +48,7 @@ class GridBundleExtension implements GridExtension
     /**
      * {@inheritDoc}
      */
-    public function getGridType($name)
+    public function getGridType(string $name): mixed
     {
         if (!$this->hasGridType($name)) {
             throw new InvalidArgumentException(sprintf('The grid type "%s" is not registered with the service container.', $name));
@@ -80,7 +60,7 @@ class GridBundleExtension implements GridExtension
     /**
      * {@inheritDoc}
      */
-    public function getGridTypeExtensions($name)
+    public function getGridTypeExtensions(string $name): array
     {
         $extensions = [];
 
@@ -96,7 +76,7 @@ class GridBundleExtension implements GridExtension
     /**
      * {@inheritDoc}
      */
-    public function hasElementType($name)
+    public function hasElementType(string $name): bool
     {
         return isset($this->elementTypeIds[$name]);
     }
@@ -104,7 +84,7 @@ class GridBundleExtension implements GridExtension
     /**
      * {@inheritDoc}
      */
-    public function getElementType($name)
+    public function getElementType(string $name): mixed
     {
         if (!$this->hasElementType($name)) {
             throw new InvalidArgumentException(sprintf('The element type "%s" is not registered with the service container.', $name));
@@ -116,7 +96,7 @@ class GridBundleExtension implements GridExtension
     /**
      * {@inheritDoc}
      */
-    public function getElementTypeExtensions($name)
+    public function getElementTypeExtensions(string $name): array
     {
         $extensions = [];
 
@@ -136,7 +116,7 @@ class GridBundleExtension implements GridExtension
      * @param string $name
      * @return mixed
      */
-    private function loadExtension($serviceId, $name)
+    private function loadExtension(string $serviceId, string $name): mixed
     {
         $extension = $this->container->get($serviceId);
 

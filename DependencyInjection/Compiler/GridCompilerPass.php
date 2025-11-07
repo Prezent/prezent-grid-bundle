@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Prezent\GridBundle\DependencyInjection\Compiler;
 
 use Prezent\Grid\Twig\GridExtension;
@@ -19,7 +21,7 @@ class GridCompilerPass implements CompilerPassInterface
     /**
      * {@inheritDoc}
      */
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         $serviceIds = [
             $this->addGrids($container),
@@ -44,15 +46,21 @@ class GridCompilerPass implements CompilerPassInterface
         $this->addVariableResolvers($container);
 
         $reflClass = new \ReflectionClass(GridExtension::class);
-        $container->findDefinition('twig.loader.filesystem')
-            ->addMethodCall('addPath', array(dirname(dirname($reflClass->getFileName())).'/Resources/views/grid'));
+
+        $loaderServiceId = $container->hasDefinition('twig.loader.native_filesystem')
+            ? 'twig.loader.native_filesystem'
+            : ($container->hasDefinition('twig.loader.filesystem') ? 'twig.loader.filesystem' : null);
+
+        if (null !== $loaderServiceId) {
+            $container->findDefinition($loaderServiceId)
+                ->addMethodCall('addPath', [dirname(dirname($reflClass->getFileName())) . '/Resources/views/grid']);
+        }
     }
 
     /**
      * Add all grid types
      *
-     * @param ContainerBuilder $container
-     * @return array
+     * @return array<mixed>
      */
     private function addGrids(ContainerBuilder $container): array
     {
@@ -68,14 +76,13 @@ class GridCompilerPass implements CompilerPassInterface
             ->replaceArgument(1, $types)
             ->replaceArgument(2, $extensions);
 
-        return [ $types, $extensions ];
+        return [$types, $extensions];
     }
 
     /**
      * Add all element types and extensions
      *
-     * @param ContainerBuilder $container
-     * @return array
+     * @return array<mixed>
      */
     private function addTypes(ContainerBuilder $container): array
     {
@@ -97,10 +104,9 @@ class GridCompilerPass implements CompilerPassInterface
     /**
      * Add all grid extensions
      *
-     * @param ContainerBuilder $container
      * @return void
      */
-    private function addGridExtensions(ContainerBuilder $container)
+    private function addGridExtensions(ContainerBuilder $container): void
     {
         if (!$container->has('prezent_grid.element_type_factory')) {
             return;
@@ -123,10 +129,9 @@ class GridCompilerPass implements CompilerPassInterface
     /**
      * Add all variable resolvers
      *
-     * @param ContainerBuilder $container
      * @return void
      */
-    private function addVariableResolvers(ContainerBuilder $container)
+    private function addVariableResolvers(ContainerBuilder $container): void
     {
         if (!$container->has('prezent_grid.variable_resolver')) {
             return;
@@ -145,10 +150,9 @@ class GridCompilerPass implements CompilerPassInterface
     /**
      * Find types using a tag
      *
-     * @param string $tag
-     * @return array
+     * @return array<mixed>
      */
-    private function findTypes(ContainerBuilder $container, $tag)
+    private function findTypes(ContainerBuilder $container, string $tag): array
     {
         $types = [];
 
@@ -165,11 +169,9 @@ class GridCompilerPass implements CompilerPassInterface
     /**
      * Find type extensions using a tag
      *
-     * @param ContainerBuilder $container
-     * @param string $tag
-     * @return array
+     * @return array<mixed>
      */
-    private function findTypeExtensions(ContainerBuilder $container, $tag)
+    private function findTypeExtensions(ContainerBuilder $container, string $tag): array
     {
         $typeExtensions = [];
 

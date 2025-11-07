@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Prezent\GridBundle\Grid\Type;
 
 use Prezent\Grid\BaseElementTypeExtension;
@@ -16,48 +18,23 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class SortableTypeExtension extends BaseElementTypeExtension
 {
-    /**
-     * @var RequestStack
-     */
-    private $requestStack;
-
-    /**
-     * @var string
-     */
-    private $fieldParameter;
-
-    /**
-     * @var string
-     */
-    private $orderParameter;
-
-    /**
-     * Constructor
-     *
-     * @param RequestStack $requestStack
-     * @param string $fieldParameter
-     * @param string $orderParameter
-     */
-    public function __construct(RequestStack $requestStack, $fieldParameter = 'sort_by', $orderParameter = 'sort_order')
-    {
-        $this->requestStack = $requestStack;
-        $this->fieldParameter = $fieldParameter;
-        $this->orderParameter = $orderParameter;
+    public function __construct(
+        private readonly RequestStack $requestStack,
+        private readonly string $fieldParameter = 'sort_by',
+        private readonly string $orderParameter = 'sort_order'
+    ) {
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
             ->setDefaults([
-                'sortable'              => false,
-                'sort_field'            => null,
-                'sort_route'            => null,
+                'sortable' => false,
+                'sort_field' => null,
+                'sort_route' => null,
                 'sort_route_parameters' => null,
-                'sort_field_parameter'  => $this->fieldParameter,
-                'sort_order_parameter'  => $this->orderParameter,
+                'sort_field_parameter' => $this->fieldParameter,
+                'sort_order_parameter' => $this->orderParameter,
             ])
             ->setAllowedTypes('sortable', 'bool')
             ->setAllowedTypes('sort_field', ['null', 'string'])
@@ -68,10 +45,7 @@ class SortableTypeExtension extends BaseElementTypeExtension
         ;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function buildView(ElementView $view, array $options)
+    public function buildView(ElementView $view, array $options): void
     {
         if (!$options['sortable'] || !($request = $this->requestStack->getCurrentRequest())) {
             return;
@@ -102,10 +76,7 @@ class SortableTypeExtension extends BaseElementTypeExtension
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function getExtendedType()
+    public function getExtendedType(): string
     {
         return ColumnType::class;
     }
