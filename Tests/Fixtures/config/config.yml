@@ -2,10 +2,10 @@ framework:
     default_locale: en
     router:
         resource: "%kernel.project_dir%/Tests/Fixtures/config/routing.yml"
-    secret: test
     test: true
     translator:
-        fallback: en
+        fallbacks:
+          - en
 
 twig:
     debug: '%kernel.debug%'
@@ -19,4 +19,4 @@ services:
 
     Prezent\GridBundle\Tests\Fixtures\AppBundle\Controller\TestController:
         tags:
-            - { name: contoller.service_arguments }
+            - { name: controller.service_arguments }
