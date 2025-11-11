@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace Prezent\GridBundle\Grid\Extension;
 
+use Prezent\Grid\BaseGridType;
+use Prezent\Grid\ElementType;
 use Prezent\Grid\Exception\InvalidArgumentException;
+use Prezent\Grid\Extension\Core\GridType;
 use Prezent\Grid\GridExtension;
 use Psr\Container\ContainerInterface;
 
@@ -48,7 +51,7 @@ class GridBundleExtension implements GridExtension
     /**
      * {@inheritDoc}
      */
-    public function getGridType(string $name): mixed
+    public function getGridType(string $name): BaseGridType
     {
         if (!$this->hasGridType($name)) {
             throw new InvalidArgumentException(sprintf('The grid type "%s" is not registered with the service container.', $name));
@@ -84,7 +87,7 @@ class GridBundleExtension implements GridExtension
     /**
      * {@inheritDoc}
      */
-    public function getElementType(string $name): mixed
+    public function getElementType(string $name): ElementType
     {
         if (!$this->hasElementType($name)) {
             throw new InvalidArgumentException(sprintf('The element type "%s" is not registered with the service container.', $name));
