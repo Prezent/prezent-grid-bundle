@@ -7,7 +7,7 @@
     "require": {
         "php": "^8.2",
         "ext-intl": "*",
-        "prezent/grid": "^0.15",
+        "prezent/grid": "^0.16",
         "symfony/dependency-injection": "^6.4|^7.0",
         "symfony/framework-bundle": "^6.4|^7.0",
         "symfony/options-resolver": "^6.4|^7.0",
