@@ -40,6 +40,16 @@ class TranslatableLabelTypeExtension extends BaseElementTypeExtension
     /**
      * {@inheritDoc}
      */
+    public function bindView(ElementView $view, $item): void
+    {
+        if (is_callable($view->vars['label'])) {
+            $view->vars['label'] = call_user_func($view->vars['label'], $item);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getExtendedType(): string
     {
         return ElementType::class;
